@@ -30,6 +30,16 @@ return [
 
     'disks' => [
 
+        'gcs' => [
+            'driver' => 'gcs',
+            'throw' => true,
+            'key_file_path' => env('GOOGLE_CLOUD_KEY_FILE', base_path('service-account.json')),
+            'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'hyfish-capstone-project'),
+            'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'hyfish-storage'),
+            'storage_api_uri' => env('GOOGLE_CLOUD_STORAGE_API_URI', null),
+            'apiEndpoint' => env('GOOGLE_CLOUD_STORAGE_API_ENDPOINT', null),
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

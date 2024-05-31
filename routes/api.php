@@ -25,8 +25,8 @@ Route::middleware('auth:sanctum')->group(function(){
     });
 
     Route::controller(CaptureController::class)->group(function(){
-        Route::get('/captures/user/{user_id}', 'getCapturesByUserID');
-        Route::get('/captures/user/{user_id}/count/{count}', 'getRecentCapturesByUserID');
+        Route::get('/captures', 'getCaptures');
+        Route::get('/captures/count/{count}', 'getRecentCaptures');
         Route::get('/captures/{capture_id}', 'getCapturebyCaptureID');
         Route::post('/captures', 'storeCapture');
     });
@@ -41,7 +41,7 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::put('/posts/{post_id}', 'updatePost');
         Route::delete('/posts/{post_id}', 'deletePost');
         Route::post('/post/{post_id}/comment', 'storeComment');
-        Route::post('/post/{post_id}/reply', 'storeReply');
+        Route::post('/post/{post_id}/comment/{comment_id}/reply', 'storeReply');
         Route::post('/post/{post_id}/like', 'storeLike');
         Route::delete('/post/{post_id}/like', 'deleteLike');
         Route::post('/post/{post_id}/follow', 'storeFollow');
@@ -51,12 +51,12 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::controller(ArticleController::class)->group(function(){
         Route::get('/articles', 'getArticles');
         Route::get('/articles/{article_id}', 'getArticleByID');
-        Route::get('/articles/name/{name}', 'getArticlesByName');
+        Route::get('/articles/search/{keywords}', 'getArticlesByName');
     });
 
     Route::controller(ForumController::class)->group(function(){
         Route::get('/forums', 'getForums');
         Route::get('/forums/{article_id}', 'getForumByID');
-        Route::get('/forums/name/{name}', 'getForumsByName');
+        Route::get('/forums/search/{keywords}', 'getForumsByName');
     });
 });
