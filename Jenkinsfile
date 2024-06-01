@@ -51,7 +51,7 @@ pipeline {
 
                 withCredentials([
                     string(credentialsId: 'discord-webhook', variable: 'DISCORD_WEBHOOK_URL'),
-                    string(credentialsId: 'deployment-url', variable: 'DEPLOYMENT_URL')
+                    string(credentialsId: 'deployment-url', variable: 'DEPLOYMENT_URL'),
                     string(credentialsId: 'documentation-url', variable: 'DOCUMENTATION_URL')
                 ]) {
                     discordSend description: "server:\t${DEPLOYMENT_URL}\n\napi documentation:\t${DOCUMENTATION_URL}\n\nLatest commit message:\t\"${commitMessage}\"", 
