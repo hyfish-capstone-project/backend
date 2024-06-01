@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -48,7 +49,9 @@ class CaptureController extends ResponseController
     public function storeImage(UploadedFile $file, $folder = null, $filename = null)
     {
         $name = !is_null($filename) ? $filename : date('ymdhis') . '_' . Str::random(6);
-        return $file->storeAs($folder, $name . "." . $file->extension(), 'gcs');
+        $path = $file->storeAs($folder, $name . "." . $file->extension(), 'gcs');
+        $url = Storage::disk('gcs')->url($path);
+        return $url;
     }
 
     public function storeCapture(Request $request)
