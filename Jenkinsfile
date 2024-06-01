@@ -54,7 +54,7 @@ pipeline {
                     string(credentialsId: 'deployment-url', variable: 'DEPLOYMENT_URL'),
                     string(credentialsId: 'documentation-url', variable: 'DOCUMENTATION_URL')
                 ]) {
-                    discordSend description: "server:\t${DEPLOYMENT_URL}\n\napi documentation:\t${DOCUMENTATION_URL}\n\nLatest commit message:\t\"${commitMessage}\"", 
+                    discordSend description: "Server:\n${DEPLOYMENT_URL}\n\nAPI Documentation:\n${DOCUMENTATION_URL}\n\nLast Commit:\n\"${commitMessage}\"", 
                                 footer: 'Jenkins CI/CD', 
                                 link: env.BUILD_URL, 
                                 result: currentBuild.currentResult, 
