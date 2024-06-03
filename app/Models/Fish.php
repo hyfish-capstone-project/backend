@@ -14,4 +14,14 @@ class Fish extends Model
         'name',
         'description'
     ];
+
+    public function captures()
+    {
+        return $this->hasMany(Capture::class);
+    }
+
+    public function recipes()
+    {
+        return $this->hasMany(Recipe::class);
+    }
 }

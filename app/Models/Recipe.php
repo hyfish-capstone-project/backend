@@ -14,4 +14,19 @@ class Recipe extends Model
         'name',
         'fish_id'
     ];
+
+    public function fish()
+    {
+        return $this->belongsTo(Fish::class);
+    }
+
+    public function steps()
+    {
+        return $this->hasMany(Step::class);
+    }
+
+    public function ingridients()
+    {
+        return $this->belongsToMany(Ingridient::class);
+    }
 }

@@ -13,4 +13,9 @@ class Ingridient extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function recipes()
+    {
+        return $this->belongsToMany(Recipe::class, 'recipe_ingridient');
+    }
 }

@@ -15,4 +15,9 @@ class Step extends Model
         'order',
         'recipe_id'
     ];
+
+    public function recipe()
+    {
+        return $this->belongsTo(Recipe::class);
+    }
 }
