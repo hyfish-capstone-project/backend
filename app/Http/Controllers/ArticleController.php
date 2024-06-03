@@ -12,20 +12,37 @@ class ArticleController extends ResponseController
     public function getArticles(Request $request)
     {
         try {
-            $articles = Post
+            $articles = Post::whereHas('user', function ($query) {
+                $query->where('role', 'admin');
+            })
+            ->withCount('liked_posts as likes')
+            ->withCount('followed_posts as followers')
+            ->with('comments.replies')
+            ->get();
+
+            return $this->sendResponse('Get articles successful', $articles);
         }
         catch (Exception $e){
             return $this->sendError($e->getMessage());
         }
     }
 
-    public function getArticleByID(Request $request)
+    public function getArticlesByTitle(Request $request, $keywords)
     {
+        try {
+            $articles = Post::whereHas('user', function ($query) {
+                $query->where('role', 'admin');
+            })
+            ->where('title', 'like', '%' . $keywords . '%')
+            ->withCount('liked_posts as likes')
+            ->withCount('followed_posts as followers')
+            ->with('comments.replies')
+            ->get();
 
-    }
-
-    public function getArticlesByName(Request $request)
-    {
-
+            return $this->sendResponse('Get articles by name successful', $articles);
+        }
+        catch (Exception $e){
+            return $this->sendError($e->getMessage());
+        }
     }
 }

@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::controller(PostController::class)->group(function(){
         Route::post('/posts', 'storePost');
+        Route::get('/posts/{post_id}', 'getPostByID');
         Route::put('/posts/{post_id}', 'updatePost');
         Route::delete('/posts/{post_id}', 'deletePost');
         Route::post('/post/{post_id}/comment', 'storeComment');
@@ -50,13 +51,11 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::controller(ArticleController::class)->group(function(){
         Route::get('/articles', 'getArticles');
-        Route::get('/articles/{article_id}', 'getArticleByID');
-        Route::get('/articles/search/{keywords}', 'getArticlesByName');
+        Route::get('/articles/search/{keywords}', 'getArticlesByTitle');
     });
 
     Route::controller(ForumController::class)->group(function(){
         Route::get('/forums', 'getForums');
-        Route::get('/forums/{article_id}', 'getForumByID');
-        Route::get('/forums/search/{keywords}', 'getForumsByName');
+        Route::get('/forums/search/{keywords}', 'getForumsByTitle');
     });
 });
