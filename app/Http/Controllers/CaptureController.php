@@ -28,7 +28,7 @@ class CaptureController extends ResponseController
     {
         try {
             $captures = Capture::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->take($count)->get();
-            return $this->sendResponse('Get captures successful', $captures);
+            return $this->sendResponse('Get recent captures successful', $captures);
         }
         catch (Exception $e) {
             return $this->sendError($e->getMessage());
@@ -39,7 +39,7 @@ class CaptureController extends ResponseController
     {
         try {
             $captures = Capture::findOrFail($capture_id);
-            return $this->sendResponse('Get captures successful', $captures);
+            return $this->sendResponse('Get capture by ID successful', $captures);
         }
         catch (Exception $e) {
             return $this->sendError($e->getMessage());
