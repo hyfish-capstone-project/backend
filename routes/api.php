@@ -41,12 +41,12 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::get('/posts/{post_id}', 'getPostByID');
         Route::put('/posts/{post_id}', 'updatePost');
         Route::delete('/posts/{post_id}', 'deletePost');
-        Route::post('/post/{post_id}/comment', 'storeComment');
-        Route::post('/post/{post_id}/comment/{comment_id}/reply', 'storeReply');
-        Route::post('/post/{post_id}/like', 'storeLike');
-        Route::delete('/post/{post_id}/like', 'deleteLike');
-        Route::post('/post/{post_id}/follow', 'storeFollow');
-        Route::delete('/post/{post_id}/follow', 'deleteFollow');
+        Route::post('/posts/{post_id}/comment', 'storeComment');
+        Route::post('/posts/{post_id}/comment/{comment_id}/reply', 'storeReply');
+        Route::post('/posts/{post_id}/like', 'storeLike');
+        Route::delete('/posts/{post_id}/like', 'deleteLike');
+        Route::post('/posts/{post_id}/follow', 'storeFollow');
+        Route::delete('/posts/{post_id}/follow', 'deleteFollow');
     });
 
     Route::controller(ArticleController::class)->group(function(){
