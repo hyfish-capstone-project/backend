@@ -25,8 +25,8 @@ class Recipe extends Model
         return $this->hasMany(Step::class);
     }
 
-    public function ingridients()
+    public function ingredients()
     {
-        return $this->belongsToMany(Ingridient::class);
+        return $this->belongsToMany(Ingredient::class, 'recipe_ingredient');
     }
 }

@@ -12,7 +12,9 @@ class Fish extends Model
     protected $table = 'fishes';
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'fish_image_url',
+        'nutrition_image_url'
     ];
 
     public function captures()

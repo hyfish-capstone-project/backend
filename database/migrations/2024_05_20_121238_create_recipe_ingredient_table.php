@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('recipe_ingridient', function (Blueprint $table) {
+        Schema::create('recipe_ingredient', function (Blueprint $table) {
             $table->id();
             $table->foreignId('recipe_id')->references('id')->on('recipes')->onDelete('cascade')->constrained();
-            $table->foreignId('ingridient_id')->references('id')->on('ingridients')->onDelete('cascade')->constrained();
+            $table->foreignId('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade')->constrained();
             $table->integer('amount');
             $table->string('measurement');
             $table->timestamps();

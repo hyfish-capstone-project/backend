@@ -33,7 +33,7 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::controller(FishController::class)->group(function(){
         Route::get('/fishes', 'getAllFishes');
-        Route::get('/fish/{fish_id}', 'getFishByID');
+        Route::get('/fishes/{fish_id}', 'getFishByID');
     });
 
     Route::controller(PostController::class)->group(function(){

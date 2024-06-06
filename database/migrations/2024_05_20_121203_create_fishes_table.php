@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description');
+            $table->string('fish_image_url');
+            $table->string('nutrition_image_url');
             $table->timestamps();
         });
     }
