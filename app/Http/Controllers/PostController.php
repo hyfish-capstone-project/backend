@@ -13,6 +13,7 @@ use App\Models\Tag;
 use App\Models\PostImage;
 use App\Models\Comment;
 use App\Models\Reply;
+use Exception;
 
 class PostController extends ResponseController
 {
@@ -45,7 +46,7 @@ class PostController extends ResponseController
                 'title.required' => 'Title can\'t be empty',
                 'body.required' => 'Body can\'t be empty',
                 'tags.array' => 'Tags must be an array',
-                'image.*.mimes' => 'Tag must be a string',
+                'tags.*.mimes' => 'Tag must be a string',
                 'images.array' => 'Images must be an array',
                 'image.*.mimes' => 'Allowed image extensions are PNG, JPG, JPEG'
             ]);
@@ -74,8 +75,8 @@ class PostController extends ResponseController
                 $post->tags()->attach($tagids);
             }
 
+            $postImages = [];
             if ($request->hasFile('images')) {
-                $postImages = [];
                 foreach ($request->file('images') as $image) {
                     $image_url = $this->storeImage($image, 'posts');
                     $postImages[] = PostImage::create([
@@ -88,7 +89,7 @@ class PostController extends ResponseController
             $response = [
                 'id' => $post->id,
                 'title' => $post->title,
-                'body' => $post->title,
+                'body' => $post->body,
                 'tags' => $tagResponse,
                 'images' => $postImages
             ];
@@ -183,7 +184,7 @@ class PostController extends ResponseController
                 'title.required' => 'Title can\'t be empty',
                 'body.required' => 'Body can\'t be empty',
                 'tags.array' => 'Tags must be an array',
-                'image.*.mimes' => 'Tag must be a string',
+                'tags.*.mimes' => 'Tag must be a string',
                 'images.array' => 'Images must be an array',
                 'image.*.mimes' => 'Allowed image extensions are PNG, JPG, JPEG'
             ]);
