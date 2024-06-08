@@ -17,7 +17,7 @@ pipeline {
         stage('Set up Environment') {
             steps {
                 script {
-                    withCredentials([file(credentialsId: 'hyfish-env', variable: 'ENV_FILE')]) {
+                    withCredentials([file(credentialsId: 'hyfish-api-env', variable: 'ENV_FILE')]) {
                         sh 'cp $ENV_FILE .env'
                     }
                     
@@ -30,6 +30,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
+                    sh 'docker stop hyfish-api-container || true'
+                    sh 'docker system prune -af'
                     sh 'docker build -t hyfish-api .'
                 }
             }
@@ -37,8 +39,6 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    sh 'docker stop hyfish-api-container || true'
-                    sh 'docker rm hyfish-api-container || true'
                     sh 'docker run -d -p 80:80 --name hyfish-api-container hyfish-api'
                 }
             }
@@ -51,8 +51,8 @@ pipeline {
 
                 withCredentials([
                     string(credentialsId: 'discord-webhook', variable: 'DISCORD_WEBHOOK_URL'),
-                    string(credentialsId: 'deployment-url', variable: 'DEPLOYMENT_URL'),
-                    string(credentialsId: 'documentation-url', variable: 'DOCUMENTATION_URL')
+                    string(credentialsId: 'hyfish-api-url', variable: 'DEPLOYMENT_URL'),
+                    string(credentialsId: 'hyfish-api-documentation-url', variable: 'DOCUMENTATION_URL')
                 ]) {
                     discordSend description: "Server:\n${DEPLOYMENT_URL}\n\nAPI Documentation:\n${DOCUMENTATION_URL}\n\nLast Commit:\n\"${commitMessage}\"", 
                                 footer: 'Jenkins CI/CD', 
