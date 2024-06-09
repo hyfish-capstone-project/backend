@@ -39,7 +39,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    sh 'docker run -d -p 80:80 --name hyfish-api-container hyfish-api'
+                    sh 'docker run --net hyfish-network --ip 192.168.1.10 -d -p 80:80 --name hyfish-api-container hyfish-api'
                 }
             }
         }
