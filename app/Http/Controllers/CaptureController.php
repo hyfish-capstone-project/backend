@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Capture;
+use App\Models\Fish;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -50,8 +52,7 @@ class CaptureController extends ResponseController
     {
         $name = !is_null($filename) ? $filename : date('ymdhis') . '_' . Str::random(6);
         $path = $file->storeAs($folder, $name . "." . $file->extension(), 'gcs');
-        $url = Storage::disk('gcs')->url($path);
-        return $url;
+        return $path;
     }
 
     public function storeCapture(Request $request)
@@ -69,15 +70,30 @@ class CaptureController extends ResponseController
                 return $this->sendError($validator->errors(), 422);
             }
 
-            // classify belom
+            // send request to flask
+            $path = $request->hasFile('image') ? $this->storeImage($request->file('image'), 'captures') : null;
+            $host = env('PREDICTION_HOST', 'localhost');
+            $port = env('PREDICTION_PORT', 5000);
+            $url = "http://$host:$port/api/predict"; 
+            $response = Http::post($url, ['path' => $path]);
 
-            $image_url = $request->hasFile('image') ? $this->storeImage($request->file('image'), 'captures') : null;
+            if ($response->successful() && isset($response['result'])){
+                $fish = Fish::firstWhere('name', $response['result']);
+                if (is_null($fish)) {
+                    return $this->sendError('Fish not found');
+                }
+            }
+            else {
+                return $this->sendError('Failed to get prediction response');
+            }
+            
+            // TODO: update result dan rate
             $capture = Capture::create([
-                'image_url' => $image_url,
-                'result' => 'sangat segar',
-                'rate' => 96,
+                'image_url' => Storage::disk('gcs')->url($path),
+                'result' => "Sangat segar",
+                'rate' => "96",
                 'user_id' => Auth::user()->id,
-                'fish_id' => 1,
+                'fish_id' => $fish->id,
             ]);
 
             return $this->sendResponse('Store capture successful', $capture);
