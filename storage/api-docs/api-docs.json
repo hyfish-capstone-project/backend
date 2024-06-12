@@ -56,7 +56,7 @@
                                     "value": {
                                         "username": "arsyad",
                                         "email": "emailarsyad@gmail.com",
-                                        "password": "secret123", 
+                                        "password": "secret123",
                                         "confirm_password": "secret123"
                                     }
                                 }
@@ -286,7 +286,7 @@
                                                     "type": "string"
                                                 },
                                                 "role": {
-                                                    "type": "string"                                                
+                                                    "type": "string"
                                                 }
                                             }
                                         }
@@ -320,8 +320,8 @@
                     "content": {
                         "application/json": {
                             "example": {
-                                    "username": "arsyad",
-                                    "email": "emailcadanganarsyad@gmail.com"
+                                "username": "arsyad",
+                                "email": "emailcadanganarsyad@gmail.com"
                             },
                             "schema": {
                                 "type": "object",
@@ -535,7 +535,7 @@
                                         "message": {
                                             "type": "string"
                                         },
-                                        "data":{
+                                        "data": {
                                             "type": "array",
                                             "items": {
                                                 "type": "object",
@@ -762,7 +762,7 @@
                                         "message": {
                                             "type": "string"
                                         },
-                                        "data":{
+                                        "data": {
                                             "type": "array",
                                             "items": {
                                                 "type": "object",
@@ -826,7 +826,7 @@
                                         "message": {
                                             "type": "string"
                                         },
-                                        "data":{
+                                        "data": {
                                             "type": "array",
                                             "items": {
                                                 "type": "object",
@@ -881,7 +881,7 @@
                                         "message": {
                                             "type": "string"
                                         },
-                                        "data":{
+                                        "data": {
                                             "type": "object",
                                             "properties": {
                                                 "id": {
@@ -1619,7 +1619,7 @@
         },
         "/api/articles": {
             "get": {
-                "description": "Get all articles",
+                "summary": "Get all articles",
                 "tags": [
                     "Articles"
                 ],
@@ -1638,81 +1638,62 @@
                         "description": "Success get all articles",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "title": {
-                                                        "type": "string"
-                                                    },
-                                                    "body": {
-                                                        "type": "string"
-                                                    },
-                                                    "images": {
-                                                        "type": "array",
-                                                        "items": {
-                                                            "type": "string"
+                                "example": {
+                                    "status": true,
+                                    "message": "Get articles successful",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "title": "The Importance of Sustainable Fisheries",
+                                            "body": "Sustainable fisheries ensure that fish populations remain healthy and that ecosystems are balanced. This article explores various sustainable practices and their impact on marine life.",
+                                            "user_id": 1,
+                                            "created_at": "2024-06-12T04:42:54.000000Z",
+                                            "updated_at": "2024-06-12T04:42:54.000000Z",
+                                            "likes": 2,
+                                            "followers": 1,
+                                            "comments": [
+                                                {
+                                                    "id": 1,
+                                                    "message": "Very good information!",
+                                                    "user_id": 2,
+                                                    "post_id": 1,
+                                                    "created_at": "2024-06-12T04:42:54.000000Z",
+                                                    "updated_at": "2024-06-12T04:42:54.000000Z",
+                                                    "replies": []
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "message": "I found this section very helpful.",
+                                                    "user_id": 3,
+                                                    "post_id": 1,
+                                                    "created_at": "2024-06-12T04:42:54.000000Z",
+                                                    "updated_at": "2024-06-12T04:42:54.000000Z",
+                                                    "replies": [
+                                                        {
+                                                            "id": 1,
+                                                            "message": "me too",
+                                                            "user_id": 4,
+                                                            "comment_id": 2,
+                                                            "created_at": "2024-06-12T04:42:54.000000Z",
+                                                            "updated_at": "2024-06-12T04:42:54.000000Z"
                                                         }
-                                                    },
-                                                    "like": {
-                                                        "type": "number"
-                                                    },
-                                                    "comment": {
-                                                        "type": "number"
-                                                    }
+                                                    ]
                                                 }
-                                            }
+                                            ]
+                                        },
+                                        {
+                                            "id": 2,
+                                            "title": "Guide: Effective Fisheries Management",
+                                            "body": "Fisheries management is crucial for maintaining the balance of marine ecosystems. This guide by our admin covers the best practices and strategies for effective fisheries management.",
+                                            "user_id": 1,
+                                            "created_at": "2024-06-12T04:42:54.000000Z",
+                                            "updated_at": "2024-06-12T04:42:54.000000Z",
+                                            "likes": 2,
+                                            "followers": 1,
+                                            "comments": []
                                         }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "$ref": "#/components/BadRequest"
-                    }
-                }
-            }
-        },
-        "/api/articles/{id}": {
-            "get": {
-                "description": "Get article by id",
-                "tags": [
-                    "Articles"
-                ],
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "number"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success get article by id",
-                        "content": {
-                            "application/json": {
+                                    ]
+                                },
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -1722,48 +1703,81 @@
                                         "message": {
                                             "type": "string"
                                         },
-                                        "data":{
+                                        "data": {
                                             "type": "array",
                                             "items": {
                                                 "type": "object",
                                                 "properties": {
+                                                    "id": {
+                                                        "type": "number"
+                                                    },
                                                     "title": {
                                                         "type": "string"
                                                     },
                                                     "body": {
                                                         "type": "string"
                                                     },
-                                                    "images": {
-                                                        "type": "array",
-                                                        "items": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "like": {
+                                                    "user_id": {
                                                         "type": "number"
                                                     },
-                                                    "comment": {
-                                                        "type": "object",
-                                                        "properties": {
-                                                            "count": {
-                                                                "type": "number"
-                                                            },
-                                                            "data": {
-                                                                "type": "array",
-                                                                "items": {
-                                                                    "type": "object",
-                                                                    "properties": {
-                                                                        "id": {
-                                                                            "type": "number"
-                                                                        },
-                                                                        "message": {
-                                                                            "type": "string"
-                                                                        },
-                                                                        "createdAt": {
-                                                                            "type": "string"
-                                                                        },
-                                                                        "updatedAt": {
-                                                                            "type": "string"
+                                                    "created_at": {
+                                                        "type": "string"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string"
+                                                    },
+                                                    "likes": {
+                                                        "type": "number"
+                                                    },
+                                                    "followers": {
+                                                        "type": "number"
+                                                    },
+                                                    "comments": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "number"
+                                                                },
+                                                                "message": {
+                                                                    "type": "string"
+                                                                },
+                                                                "user_id": {
+                                                                    "type": "number"
+                                                                },
+                                                                "post_id": {
+                                                                    "type": "number"
+                                                                },
+                                                                "created_at": {
+                                                                    "type": "string"
+                                                                },
+                                                                "updated_at": {
+                                                                    "type": "string"
+                                                                },
+                                                                "replies": {
+                                                                    "type": "array",
+                                                                    "items": {
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "type": "number"
+                                                                            },
+                                                                            "message": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "user_id": {
+                                                                                "type": "number"
+                                                                            },
+                                                                            "comment_id": {
+                                                                                "type": "number"
+                                                                            },
+                                                                            "created_at": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "updated_at": {
+                                                                                "type": "string"
+                                                                            }
                                                                         }
                                                                     }
                                                                 }
@@ -1786,7 +1800,7 @@
         },
         "/api/articles/search/{keywords}": {
             "get": {
-                "description": "Get all articles containing keywords",
+                "summary": "Get all articles containing keywords",
                 "tags": [
                     "Articles"
                 ],
@@ -1813,6 +1827,23 @@
                         "description": "Success get all articles containing keywords",
                         "content": {
                             "application/json": {
+                                "example": {
+                                    "status": true,
+                                    "message": "Get articles by name successful",
+                                    "data": [
+                                        {
+                                            "id": 2,
+                                            "title": "Guide: Effective Fisheries Management",
+                                            "body": "Fisheries management is crucial for maintaining the balance of marine ecosystems. This guide by our admin covers the best practices and strategies for effective fisheries management.",
+                                            "user_id": 1,
+                                            "created_at": "2024-06-12T04:42:54.000000Z",
+                                            "updated_at": "2024-06-12T04:42:54.000000Z",
+                                            "likes": 2,
+                                            "followers": 1,
+                                            "comments": []
+                                        }
+                                    ]
+                                },
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -1822,28 +1853,86 @@
                                         "message": {
                                             "type": "string"
                                         },
-                                        "data":{
+                                        "data": {
                                             "type": "array",
                                             "items": {
                                                 "type": "object",
                                                 "properties": {
+                                                    "id": {
+                                                        "type": "number"
+                                                    },
                                                     "title": {
                                                         "type": "string"
                                                     },
                                                     "body": {
                                                         "type": "string"
                                                     },
-                                                    "images": {
+                                                    "user_id": {
+                                                        "type": "number"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string"
+                                                    },
+                                                    "likes": {
+                                                        "type": "number"
+                                                    },
+                                                    "followers": {
+                                                        "type": "number"
+                                                    },
+                                                    "comments": {
                                                         "type": "array",
                                                         "items": {
-                                                            "type": "string"
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "number"
+                                                                },
+                                                                "message": {
+                                                                    "type": "string"
+                                                                },
+                                                                "user_id": {
+                                                                    "type": "number"
+                                                                },
+                                                                "post_id": {
+                                                                    "type": "number"
+                                                                },
+                                                                "created_at": {
+                                                                    "type": "string"
+                                                                },
+                                                                "updated_at": {
+                                                                    "type": "string"
+                                                                },
+                                                                "replies": {
+                                                                    "type": "array",
+                                                                    "items": {
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "type": "number"
+                                                                            },
+                                                                            "message": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "user_id": {
+                                                                                "type": "number"
+                                                                            },
+                                                                            "comment_id": {
+                                                                                "type": "number"
+                                                                            },
+                                                                            "created_at": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "updated_at": {
+                                                                                "type": "string"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
                                                         }
-                                                    },
-                                                    "like": {
-                                                        "type": "number"
-                                                    },
-                                                    "comment": {
-                                                        "type": "number"
                                                     }
                                                 }
                                             }
@@ -1861,7 +1950,7 @@
         },
         "/api/forums": {
             "get": {
-                "description": "Get all forums",
+                "summary": "Get all forums",
                 "tags": [
                     "Forums"
                 ],
@@ -1880,81 +1969,89 @@
                         "description": "Success get all forums",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "title": {
-                                                        "type": "string"
-                                                    },
-                                                    "body": {
-                                                        "type": "string"
-                                                    },
-                                                    "images": {
-                                                        "type": "array",
-                                                        "items": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "like": {
-                                                        "type": "number"
-                                                    },
-                                                    "comment": {
-                                                        "type": "number"
-                                                    }
+                                "example":{
+                                    "status": true,
+                                    "message": "Get forums successful",
+                                    "data": [
+                                        {
+                                            "id": 3,
+                                            "title": "Innovations in Fisheries Technology",
+                                            "body": "Join the discussion on the latest technological advancements in fisheries. Share your thoughts and learn from others about new tools and methods improving the fishing industry.",
+                                            "user_id": 2,
+                                            "created_at": "2024-06-12T04:42:54.000000Z",
+                                            "updated_at": "2024-06-12T04:42:54.000000Z",
+                                            "likes": 1,
+                                            "followers": 0,
+                                            "comments": [
+                                                {
+                                                    "id": 3,
+                                                    "message": "Interesting.",
+                                                    "user_id": 4,
+                                                    "post_id": 3,
+                                                    "created_at": "2024-06-12T04:42:54.000000Z",
+                                                    "updated_at": "2024-06-12T04:42:54.000000Z",
+                                                    "replies": []
                                                 }
-                                            }
+                                            ]
+                                        },
+                                        {
+                                            "id": 4,
+                                            "title": "Best Shrimp Recipes",
+                                            "body": "Shrimp is very tasty ...",
+                                            "user_id": 3,
+                                            "created_at": "2024-06-12T04:42:54.000000Z",
+                                            "updated_at": "2024-06-12T04:42:54.000000Z",
+                                            "likes": 3,
+                                            "followers": 2,
+                                            "comments": [
+                                                {
+                                                    "id": 4,
+                                                    "message": "Shrimp never goes wrong!",
+                                                    "user_id": 2,
+                                                    "post_id": 4,
+                                                    "created_at": "2024-06-12T04:42:54.000000Z",
+                                                    "updated_at": "2024-06-12T04:42:54.000000Z",
+                                                    "replies": [
+                                                        {
+                                                            "id": 2,
+                                                            "message": "HAHHAHA",
+                                                            "user_id": 3,
+                                                            "comment_id": 4,
+                                                            "created_at": "2024-06-12T04:42:54.000000Z",
+                                                            "updated_at": "2024-06-12T04:42:54.000000Z"
+                                                        },
+                                                        {
+                                                            "id": 3,
+                                                            "message": "fr fr",
+                                                            "user_id": 2,
+                                                            "comment_id": 4,
+                                                            "created_at": "2024-06-12T04:42:54.000000Z",
+                                                            "updated_at": "2024-06-12T04:42:54.000000Z"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": 5,
+                                                    "message": "Wow",
+                                                    "user_id": 1,
+                                                    "post_id": 4,
+                                                    "created_at": "2024-06-12T04:42:54.000000Z",
+                                                    "updated_at": "2024-06-12T04:42:54.000000Z",
+                                                    "replies": [
+                                                        {
+                                                            "id": 4,
+                                                            "message": "Wow",
+                                                            "user_id": 3,
+                                                            "comment_id": 5,
+                                                            "created_at": "2024-06-12T04:42:54.000000Z",
+                                                            "updated_at": "2024-06-12T04:42:54.000000Z"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
                                         }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "$ref": "#/components/BadRequest"
-                    }
-                }
-            }
-        },
-        "/api/forums/{id}": {
-            "get": {
-                "description": "Get forums by id",
-                "tags": [
-                    "Forums"
-                ],
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "number"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success get forums by id",
-                        "content": {
-                            "application/json": {
+                                    ]
+                                },
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -1964,48 +2061,81 @@
                                         "message": {
                                             "type": "string"
                                         },
-                                        "data":{
+                                        "data": {
                                             "type": "array",
                                             "items": {
                                                 "type": "object",
                                                 "properties": {
+                                                    "id": {
+                                                        "type": "number"
+                                                    },
                                                     "title": {
                                                         "type": "string"
                                                     },
                                                     "body": {
                                                         "type": "string"
                                                     },
-                                                    "images": {
-                                                        "type": "array",
-                                                        "items": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "like": {
+                                                    "user_id": {
                                                         "type": "number"
                                                     },
-                                                    "comment": {
-                                                        "type": "object",
-                                                        "properties": {
-                                                            "count": {
-                                                                "type": "number"
-                                                            },
-                                                            "data": {
-                                                                "type": "array",
-                                                                "items": {
-                                                                    "type": "object",
-                                                                    "properties": {
-                                                                        "id": {
-                                                                            "type": "number"
-                                                                        },
-                                                                        "message": {
-                                                                            "type": "string"
-                                                                        },
-                                                                        "createdAt": {
-                                                                            "type": "string"
-                                                                        },
-                                                                        "updatedAt": {
-                                                                            "type": "string"
+                                                    "created_at": {
+                                                        "type": "string"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string"
+                                                    },
+                                                    "likes": {
+                                                        "type": "number"
+                                                    },
+                                                    "followers": {
+                                                        "type": "number"
+                                                    },
+                                                    "comments": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "number"
+                                                                },
+                                                                "message": {
+                                                                    "type": "string"
+                                                                },
+                                                                "user_id": {
+                                                                    "type": "number"
+                                                                },
+                                                                "post_id": {
+                                                                    "type": "number"
+                                                                },
+                                                                "created_at": {
+                                                                    "type": "string"
+                                                                },
+                                                                "updated_at": {
+                                                                    "type": "string"
+                                                                },
+                                                                "replies": {
+                                                                    "type": "array",
+                                                                    "items": {
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "type": "number"
+                                                                            },
+                                                                            "message": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "user_id": {
+                                                                                "type": "number"
+                                                                            },
+                                                                            "comment_id": {
+                                                                                "type": "number"
+                                                                            },
+                                                                            "created_at": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "updated_at": {
+                                                                                "type": "string"
+                                                                            }
                                                                         }
                                                                     }
                                                                 }
@@ -2028,7 +2158,7 @@
         },
         "/api/forums/search/{keywords}": {
             "get": {
-                "description": "Get all forums containing keywords",
+                "summary": "Get all forums containing keywords",
                 "tags": [
                     "Forums"
                 ],
@@ -2055,6 +2185,33 @@
                         "description": "Success get all forums containing keywords",
                         "content": {
                             "application/json": {
+                                "example":{
+                                    "status": true,
+                                    "message": "Get forums by name successful",
+                                    "data": [
+                                        {
+                                            "id": 3,
+                                            "title": "Innovations in Fisheries Technology",
+                                            "body": "Join the discussion on the latest technological advancements in fisheries. Share your thoughts and learn from others about new tools and methods improving the fishing industry.",
+                                            "user_id": 2,
+                                            "created_at": "2024-06-12T04:42:54.000000Z",
+                                            "updated_at": "2024-06-12T04:42:54.000000Z",
+                                            "likes": 1,
+                                            "followers": 0,
+                                            "comments": [
+                                                {
+                                                    "id": 3,
+                                                    "message": "Interesting.",
+                                                    "user_id": 4,
+                                                    "post_id": 3,
+                                                    "created_at": "2024-06-12T04:42:54.000000Z",
+                                                    "updated_at": "2024-06-12T04:42:54.000000Z",
+                                                    "replies": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -2064,28 +2221,86 @@
                                         "message": {
                                             "type": "string"
                                         },
-                                        "data":{
+                                        "data": {
                                             "type": "array",
                                             "items": {
                                                 "type": "object",
                                                 "properties": {
+                                                    "id": {
+                                                        "type": "number"
+                                                    },
                                                     "title": {
                                                         "type": "string"
                                                     },
                                                     "body": {
                                                         "type": "string"
                                                     },
-                                                    "images": {
+                                                    "user_id": {
+                                                        "type": "number"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string"
+                                                    },
+                                                    "likes": {
+                                                        "type": "number"
+                                                    },
+                                                    "followers": {
+                                                        "type": "number"
+                                                    },
+                                                    "comments": {
                                                         "type": "array",
                                                         "items": {
-                                                            "type": "string"
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "number"
+                                                                },
+                                                                "message": {
+                                                                    "type": "string"
+                                                                },
+                                                                "user_id": {
+                                                                    "type": "number"
+                                                                },
+                                                                "post_id": {
+                                                                    "type": "number"
+                                                                },
+                                                                "created_at": {
+                                                                    "type": "string"
+                                                                },
+                                                                "updated_at": {
+                                                                    "type": "string"
+                                                                },
+                                                                "replies": {
+                                                                    "type": "array",
+                                                                    "items": {
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "type": "number"
+                                                                            },
+                                                                            "message": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "user_id": {
+                                                                                "type": "number"
+                                                                            },
+                                                                            "comment_id": {
+                                                                                "type": "number"
+                                                                            },
+                                                                            "created_at": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "updated_at": {
+                                                                                "type": "string"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
                                                         }
-                                                    },
-                                                    "like": {
-                                                        "type": "number"
-                                                    },
-                                                    "comment": {
-                                                        "type": "number"
                                                     }
                                                 }
                                             }
