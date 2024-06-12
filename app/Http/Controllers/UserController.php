@@ -117,13 +117,11 @@ class UserController extends ResponseController
     {
         try {
             $validator = Validator::make($request->all(), [
-                'username' => 'required|unique:users,username',
-                'email' => 'required|email|unique:users,email',
+                'username' => 'unique:users,username',
+                'email' => 'email|unique:users,email',
             ],
             [
-                'username.required' => 'Username can\'t be empty',
                 'username.unique' => 'Username is already used',
-                'email.required' => 'Email can\'t be empty',
                 'email.email' => 'Email is not valid',
                 'email.unique' => 'Email is already used',
             ]);
@@ -133,14 +131,17 @@ class UserController extends ResponseController
             }
 
             $user = Auth::user();
-            $user->update([
-                'username' => $request->username,
-                'email' => $request-> email,
-            ]);
+            if ($request->has('username')) {
+                $user->update(['username' => $request->username]);
+            }
+    
+            if ($request->has('email')) {
+                $user->update(['email' => $request->email]);
+            }
 
             $userdata['id'] = $user->id;
-            $userdata['username'] = $request->username; 
-            $userdata['email'] = $request->email; 
+            $userdata['username'] = $user->username; 
+            $userdata['email'] = $user->email; 
             $userdata['created_at'] = $user->created_at; 
             $userdata['updated_at'] = $user->updated_at; 
 
