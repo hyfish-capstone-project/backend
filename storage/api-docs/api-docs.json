@@ -16,11 +16,11 @@
         },
         {
             "name": "Captures",
-            "description": "Capture management"
+            "description": "Capture management (response belum fix karena model masih prototype)"
         },
         {
             "name": "Fishes",
-            "description": "Fish management"
+            "description": "Fish management (data recipes masih kosong)"
         },
         {
             "name": "Posts",
@@ -50,16 +50,11 @@
                 "requestBody": {
                     "content": {
                         "application/json": {
-                            "examples": {
-                                "arsyad": {
-                                    "description": "Register user arsyad",
-                                    "value": {
-                                        "username": "arsyad",
-                                        "email": "emailarsyad@gmail.com",
-                                        "password": "secret123", 
-                                        "confirm_password": "secret123"
-                                    }
-                                }
+                            "example": {
+                                "username": "arsyad",
+                                "email": "emailarsyad@gmail.com",
+                                "password": "secret123", 
+                                "confirm_password": "secret123"
                             },
                             "schema": {
                                 "type": "object",
@@ -95,20 +90,16 @@
                         "description": "Success register user",
                         "content": {
                             "application/json": {
-                                "examples": {
-                                    "success": {
-                                        "value": {
-                                            "status": true,
-                                            "message": "Register user successful",
-                                            "data": {
-                                                "username": "arsyad",
-                                                "email": "emailarsyad@gmail.com",
-                                                "role": "user",
-                                                "updated_at": "2024-06-12T02:16:38.000000Z",
-                                                "created_at": "2024-06-12T02:16:38.000000Z",
-                                                "id": 1
-                                            }
-                                        }
+                                "example": {
+                                    "status": true,
+                                    "message": "Register user successful",
+                                    "data": {
+                                        "username": "arsyad",
+                                        "email": "emailarsyad@gmail.com",
+                                        "role": "user",
+                                        "updated_at": "2024-06-12T02:16:38.000000Z",
+                                        "created_at": "2024-06-12T02:16:38.000000Z",
+                                        "id": 1
                                     }
                                 },
                                 "schema": {
@@ -527,47 +518,7 @@
                                     ]
                                 },
                                 "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "number"
-                                                    },
-                                                    "result": {
-                                                        "type": "string"
-                                                    },
-                                                    "image_url": {
-                                                        "type": "string"
-                                                    },
-                                                    "rate": {
-                                                        "type": "number"
-                                                    },
-                                                    "user_id": {
-                                                        "type": "number"
-                                                    },
-                                                    "fish_id": {
-                                                        "type": "number"
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string"
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
+                                    "$ref": "#/components/multiCapturesSchema"
                                 }
                             }
                         }
@@ -578,7 +529,7 @@
                 }
             },
             "post": {
-                "description": "Predict fish image",
+                "summary": "Classified fish image",
                 "tags": [
                     "Captures"
                 ],
@@ -593,16 +544,14 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "Update current user",
+                    "description": "Classified fish image",
                     "required": true,
                     "content": {
                         "multipart/form-data": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "file": {
-                                        "type": "string",
-                                        "format": "binary",
+                                    "image": {
                                         "description": "image to be predicted"
                                     }
                                 }
@@ -615,36 +564,22 @@
                         "description": "Prediction successfull",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "id": {
-                                                    "type": "number"
-                                                },
-                                                "result": {
-                                                    "type": "string"
-                                                },
-                                                "image": {
-                                                    "type": "string"
-                                                },
-                                                "rate": {
-                                                    "type": "number"
-                                                },
-                                                "createdAt": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
+                                "example": {
+                                    "status": true,
+                                    "message": "Store capture successful",
+                                    "data": {
+                                        "image_url": "https://storage.googleapis.com/hyfish-storage/captures/240612044252_9BscNG.jpg",
+                                        "result": "Sangat segar",
+                                        "rate": "96",
+                                        "user_id": 7,
+                                        "fish_id": 7,
+                                        "updated_at": "2024-06-12T04:42:53.000000Z",
+                                        "created_at": "2024-06-12T04:42:53.000000Z",
+                                        "id": 8
                                     }
+                                },
+                                "schema": {
+                                    "$ref": "#/components/captureSchema"
                                 }
                             }
                         }
@@ -655,9 +590,9 @@
                 }
             }
         },
-        "/api/captures/{id}": {
+        "/api/captures/{capture_id}": {
             "get": {
-                "description": "Get prediction history by id",
+                "summary": "Get prediction history by id",
                 "tags": [
                     "Captures"
                 ],
@@ -671,7 +606,7 @@
                         }
                     },
                     {
-                        "name": "id",
+                        "name": "capture_id",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -684,36 +619,22 @@
                         "description": "Success get prediction history by id",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "id": {
-                                                    "type": "number"
-                                                },
-                                                "result": {
-                                                    "type": "string"
-                                                },
-                                                "image": {
-                                                    "type": "string"
-                                                },
-                                                "rate": {
-                                                    "type": "number"
-                                                },
-                                                "createdAt": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
+                                "example": {
+                                    "status": true,
+                                    "message": "Store capture successful",
+                                    "data": {
+                                        "image_url": "https://storage.googleapis.com/hyfish-storage/captures/240612044252_9BscNG.jpg",
+                                        "result": "Sangat segar",
+                                        "rate": "96",
+                                        "user_id": 7,
+                                        "fish_id": 7,
+                                        "updated_at": "2024-06-12T04:42:53.000000Z",
+                                        "created_at": "2024-06-12T04:42:53.000000Z",
+                                        "id": 8
                                     }
+                                },
+                                "schema": {
+                                    "$ref": "#/components/captureSchema"
                                 }
                             }
                         }
@@ -726,7 +647,7 @@
         },
         "/api/captures/count/{count}": {
             "get": {
-                "description": "Get specified number of current user prediction history",
+                "summary": "Get current users {count} number of latest prediction history",
                 "tags": [
                     "Captures"
                 ],
@@ -753,39 +674,97 @@
                         "description": "Success get specified number of current user prediction history",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "number"
-                                                    },
-                                                    "result": {
-                                                        "type": "string"
-                                                    },
-                                                    "image": {
-                                                        "type": "string"
-                                                    },
-                                                    "rate": {
-                                                        "type": "number"
-                                                    },
-                                                    "createdAt": {
-                                                        "type": "string"
-                                                    }
+                                "examples": {
+                                    "latest-1": {
+                                        "description": "Get latest current users captures",
+                                        "value": {
+                                            "status": true,
+                                            "message": "Get recent captures successful",
+                                            "data": [
+                                                {
+                                                    "id": 8,
+                                                    "result": "Sangat segar",
+                                                    "image_url": "https://storage.googleapis.com/hyfish-storage/captures/240612044252_9BscNG.jpg",
+                                                    "rate": 96,
+                                                    "user_id": 7,
+                                                    "fish_id": 7,
+                                                    "created_at": "2024-06-12T04:42:53.000000Z",
+                                                    "updated_at": "2024-06-12T04:42:53.000000Z"
                                                 }
-                                            }
+                                            ]
+                                        }
+                                    },
+                                    "latest-2": {
+                                        "description": "Get 2 latest current users captures",
+                                        "value": {
+                                            "status": true,
+                                            "message": "Get recent captures successful",
+                                            "data": [
+                                                {
+                                                    "id": 8,
+                                                    "result": "Sangat segar",
+                                                    "image_url": "https://storage.googleapis.com/hyfish-storage/captures/240612044252_9BscNG.jpg",
+                                                    "rate": 96,
+                                                    "user_id": 7,
+                                                    "fish_id": 7,
+                                                    "created_at": "2024-06-12T04:42:53.000000Z",
+                                                    "updated_at": "2024-06-12T04:42:53.000000Z"
+                                                },
+                                                {
+                                                    "id": 7,
+                                                    "result": "Sangat segar",
+                                                    "image_url": "https://storage.googleapis.com/hyfish-storage/captures/240612040220_qPVZA6.jpg",
+                                                    "rate": 96,
+                                                    "user_id": 7,
+                                                    "fish_id": 7,
+                                                    "created_at": "2024-06-12T04:02:21.000000Z",
+                                                    "updated_at": "2024-06-12T04:02:21.000000Z"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "latest-3": {
+                                        "description": "Get 3 latest current users captures",
+                                        "value": {
+                                            "status": true,
+                                            "message": "Get recent captures successful",
+                                            "data": [
+                                                {
+                                                    "id": 8,
+                                                    "result": "Sangat segar",
+                                                    "image_url": "https://storage.googleapis.com/hyfish-storage/captures/240612044252_9BscNG.jpg",
+                                                    "rate": 96,
+                                                    "user_id": 7,
+                                                    "fish_id": 7,
+                                                    "created_at": "2024-06-12T04:42:53.000000Z",
+                                                    "updated_at": "2024-06-12T04:42:53.000000Z"
+                                                },
+                                                {
+                                                    "id": 7,
+                                                    "result": "Sangat segar",
+                                                    "image_url": "https://storage.googleapis.com/hyfish-storage/captures/240612040220_qPVZA6.jpg",
+                                                    "rate": 96,
+                                                    "user_id": 7,
+                                                    "fish_id": 7,
+                                                    "created_at": "2024-06-12T04:02:21.000000Z",
+                                                    "updated_at": "2024-06-12T04:02:21.000000Z"
+                                                },
+                                                {
+                                                    "id": 6,
+                                                    "result": "Sangat segar",
+                                                    "image_url": "https://storage.googleapis.com/hyfish-storage/captures/240612040203_piqelh.jpg",
+                                                    "rate": 96,
+                                                    "user_id": 7,
+                                                    "fish_id": 7,
+                                                    "created_at": "2024-06-12T04:02:04.000000Z",
+                                                    "updated_at": "2024-06-12T04:02:04.000000Z"
+                                                }
+                                            ]
                                         }
                                     }
+                                },
+                                "schema": {
+                                    "$ref": "#/components/multiCapturesSchema"
                                 }
                             }
                         }
@@ -798,7 +777,7 @@
         },
         "/api/fishes": {
             "get": {
-                "description": "Get all fishes",
+                "summary": "Get all fishes",
                 "tags": [
                     "Fishes"
                 ],
@@ -817,6 +796,28 @@
                         "description": "Success get all fishes",
                         "content": {
                             "application/json": {
+                                "example": {
+                                    "status": true,
+                                    "message": "Get fishes successful",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "name": "ikan indosiar",
+                                            "description": "value_for_description",
+                                            "created_at": "2024-06-01T09:34:02.000000Z",
+                                            "updated_at": "2024-06-01T09:34:02.000000Z",
+                                            "recipes": []
+                                        },
+                                        {
+                                            "id": 2,
+                                            "name": "Black Sea Sprat",
+                                            "description": "IWAK Black Sea Sprat",
+                                            "created_at": "2024-06-09T04:46:26.000000Z",
+                                            "updated_at": "2024-06-09T04:46:26.000000Z",
+                                            "recipes": []
+                                        }
+                                    ]
+                                },
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -829,15 +830,7 @@
                                         "data":{
                                             "type": "array",
                                             "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "name": {
-                                                        "type": "string"
-                                                    },
-                                                    "image": {
-                                                        "type": "string"
-                                                    }
-                                                }
+                                                "$ref": "#/components/fishSchema"
                                             }
                                         }
                                     }
@@ -851,9 +844,9 @@
                 }
             }
         },
-        "/api/fishes/{id}": {
+        "/api/fishes/{fish_id}": {
             "get": {
-                "description": "Get fishe details by id",
+                "summary": "Get fishe details by id",
                 "tags": [
                     "Fishes"
                 ],
@@ -865,6 +858,14 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "fish_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
                     }
                 ],
                 "responses": {
@@ -872,6 +873,18 @@
                         "description": "Success get fishe details by id",
                         "content": {
                             "application/json": {
+                                "example": {
+                                    "status": true,
+                                    "message": "Get fish by ID successful",
+                                    "data": {
+                                        "id": 1,
+                                        "name": "ikan indosiar",
+                                        "description": "value_for_description",
+                                        "created_at": "2024-06-01T09:34:02.000000Z",
+                                        "updated_at": "2024-06-01T09:34:02.000000Z",
+                                        "recipes": []
+                                    }
+                                },
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -882,21 +895,134 @@
                                             "type": "string"
                                         },
                                         "data":{
+                                            "$ref": "#/components/fishSchema"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/BadRequest"
+                    }
+                }
+            }
+        },
+        "/api/posts": {
+            "post": {
+                "summary": "Create new post",
+                "tags": [
+                    "Posts"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Create new post ('application/json' HANYA BUAT DOKUMENTASI, PAKAI 'multipart/form-data' BUAT REQUEST SEBENARNYA)",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "title": "FYI",
+                                "body": "Tahukah kamu, ikan merupakan hewan yang hidup di air",
+                                "tags": [
+                                    {
+                                        "name": "fun"
+                                    },
+                                    {
+                                        "name": "education"
+                                    },
+                                    {
+                                        "name": "fish"
+                                    }
+                                ],
+                                "images": [
+                                    {
+                                        "image": "image-file1 (UPLOAD FILE)"
+                                    },
+                                    {
+                                        "image": "image-file2 (UPLOAD FILE)"
+                                    }
+                                ]
+                            },
+                            "schema": {
+                                "$ref": "#/components/postRequestSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success create new post",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": true,
+                                    "message": "Post created successfully",
+                                    "data": {
+                                        "id": 8,
+                                        "title": "FYI",
+                                        "body": "Tahukah kamu, ikan merupakan hewan yang hidup di air",
+                                        "tags": [
+                                            {
+                                                "id": 5,
+                                                "name": "fun"
+                                            },
+                                            {
+                                                "id": 6,
+                                                "name": "education"
+                                            },
+                                            {
+                                                "id": 7,
+                                                "name": "fish"
+                                            }
+                                        ],
+                                        "images": [
+                                            {
+                                                "image_url": "https://storage.googleapis.com/hyfish-storage/posts/240612071135_B1K1Nz.png",
+                                                "post_id": 8,
+                                                "updated_at": "2024-06-12T07:11:37.000000Z",
+                                                "created_at": "2024-06-12T07:11:37.000000Z",
+                                                "id": 11
+                                            },
+                                            {
+                                                "image_url": "https://storage.googleapis.com/hyfish-storage/posts/240612071138_7bJsdK.png",
+                                                "post_id": 8,
+                                                "updated_at": "2024-06-12T07:11:39.000000Z",
+                                                "created_at": "2024-06-12T07:11:39.000000Z",
+                                                "id": 12
+                                            }
+                                        ]
+                                    }
+                                },
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
                                             "type": "object",
                                             "properties": {
                                                 "id": {
                                                     "type": "number"
                                                 },
-                                                "name": {
+                                                "title": {
                                                     "type": "string"
                                                 },
-                                                "description": {
+                                                "body": {
                                                     "type": "string"
                                                 },
-                                                "nutritions_image": {
-                                                    "type": "string"
-                                                },
-                                                "recipes": {
+                                                "tags": {
                                                     "type": "array",
                                                     "items": {
                                                         "type": "object",
@@ -906,43 +1032,33 @@
                                                             },
                                                             "name": {
                                                                 "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "images": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "image_url": {
+                                                                "type": "string"
                                                             },
-                                                            "ingredient": {
-                                                                "type": "array",
-                                                                "items": {
-                                                                    "type": "object",
-                                                                    "properties": {
-                                                                        "id": {
-                                                                            "type": "number"
-                                                                        },
-                                                                        "name": {
-                                                                            "type": "string"
-                                                                        },
-                                                                        "amount": {
-                                                                            "type": "number"
-                                                                        },
-                                                                        "measurement": {
-                                                                            "type": "string"
-                                                                        }
-                                                                    }
-                                                                }
+                                                            "post_id": {
+                                                                "type": "number"
                                                             },
-                                                            "steps": {
-                                                                "type": "array",
-                                                                "items": {
-                                                                    "type": "object",
-                                                                    "properties": {
-                                                                        "id": {
-                                                                            "type": "string"
-                                                                        },
-                                                                        "description": {
-                                                                            "type": "string"
-                                                                        },
-                                                                        "order": {
-                                                                            "type": "number"
-                                                                        }
-                                                                    }
-                                                                }
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "description": "Timestamp in ISO 8601 format with microseconds"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "description": "Timestamp in ISO 8601 format with microseconds"
+                                                            },
+                                                            "id": {
+                                                                "type": "number"
                                                             }
                                                         }
                                                     }
@@ -960,104 +1076,9 @@
                 }
             }
         },
-        "/api/posts": {
-            "post": {
-                "description": "Create new post",
-                "tags": [
-                    "Posts"
-                ],
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "Create new post",
-                    "content": {
-                        "application/json": {
-                            "examples": {
-                                "fyi": {
-                                    "description": "Create new post",
-                                    "value": {
-                                        "title": "FYI",
-                                        "body": "Tahukah kamu, ikan merupakan hewan yang hidup di air",
-                                        "tags": [
-                                            {
-                                                "name": "fun"
-                                            },
-                                            {
-                                                "name": "education"
-                                            },
-                                            {
-                                                "name": "fish"
-                                            }
-                                        ]
-                                    }
-                                }
-                            },
-                            "schema": {
-                                "type": "object",
-                                "required": [
-                                    "title",
-                                    "body",
-                                    "tags"
-                                ],
-                                "properties": {
-                                    "title": {
-                                        "type": "string"
-                                    },
-                                    "body": {
-                                        "type": "string"
-                                    },
-                                    "tags": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "object",
-                                            "properties": {
-                                                "name": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Success create new post",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "$ref": "#/components/BadRequest"
-                    }
-                }
-            }
-        },
-        "/api/posts/{id}": {
-            "post": {
-                "description": "post image for a post",
+        "/api/posts/{post_id}": {
+            "get": {
+                "summary": "Get post by id",
                 "tags": [
                     "Posts"
                 ],
@@ -1071,7 +1092,7 @@
                         }
                     },
                     {
-                        "name": "id",
+                        "name": "post_id",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -1079,38 +1100,67 @@
                         }
                     }
                 ],
-                "requestBody": {
-                    "description": "post image for a post",
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "file": {
-                                        "type": "string",
-                                        "format": "binary",
-                                        "description": "image of a post"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "200": {
-                        "description": "Success post image for a post",
+                        "description": "Success get post by id",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
+                                "example": {
+                                    "status": true,
+                                    "message": "Get post by id successful",
+                                    "data": {
+                                        "id": 8,
+                                        "title": "FYI",
+                                        "body": "Tahukah kamu, ikan merupakan hewan yang hidup di air",
+                                        "author": "hmd",
+                                        "created_at": "2024-06-12T07:11:32.000000Z",
+                                        "likes": 0,
+                                        "followers": 0,
+                                        "comments": [
+                                            {
+                                                "id": 1,
+                                                "message": "tes komen",
+                                                "author": {
+                                                    "id": 1,
+                                                    "username": "arsyad"
+                                                },
+                                                "created_at": "2024-06-04T21:30:34.000000Z",
+                                                "replies": []
+                                            },
+                                            {
+                                                "id": 5,
+                                                "message": "tes komen last",
+                                                "author": {
+                                                    "id": 1,
+                                                    "username": "arsyad"
+                                                },
+                                                "created_at": "2024-06-04T22:01:17.000000Z",
+                                                "replies": [
+                                                    {
+                                                        "id": 1,
+                                                        "message": "tes reply",
+                                                        "author": {
+                                                            "id": 1,
+                                                            "username": "arsyad"
+                                                        },
+                                                        "created_at": "2024-06-04T22:03:57.000000Z"
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "tags": [
+                                            "fun",
+                                            "education",
+                                            "fish"
+                                        ],
+                                        "images": [
+                                            "https://storage.googleapis.com/hyfish-storage/posts/240612071135_B1K1Nz.png",
+                                            "https://storage.googleapis.com/hyfish-storage/posts/240612071138_7bJsdK.png"
+                                        ]
                                     }
+                                },
+                                "schema": {
+                                    "$ref": "#/components/postResponseSchema"
                                 }
                             }
                         }
@@ -1121,7 +1171,7 @@
                 }
             },
             "put": {
-                "description": "Update post by id",
+                "summary": "Update post by id",
                 "tags": [
                     "Posts"
                 ],
@@ -1135,7 +1185,7 @@
                         }
                     },
                     {
-                        "name": "id",
+                        "name": "post_id",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -1147,32 +1197,14 @@
                     "description": "Update Post",
                     "content": {
                         "application/json": {
+                            "example": {
+                                "title": "FYI-2",
+                                "body": "Tahukah kamu, ikan merupakan hewan yang hidup di air",
+                                "tags": [],
+                                "images": []
+                            },
                             "schema": {
-                                "type": "object",
-                                "required": [
-                                    "title",
-                                    "body",
-                                    "tags"
-                                ],
-                                "properties": {
-                                    "title": {
-                                        "type": "string"
-                                    },
-                                    "body": {
-                                        "type": "string"
-                                    },
-                                    "tags": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "object",
-                                            "properties": {
-                                                "name": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                "$ref": "#/components/postRequestSchema"
                             }
                         }
                     }
@@ -1182,16 +1214,62 @@
                         "description": "Success update post by id",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
+                                "example": {
+                                    "status": true,
+                                    "message": "Update post successful",
+                                    "data": {
+                                        "id": 8,
+                                        "title": "FYI-2",
+                                        "body": "Tahukah kamu, ikan merupakan hewan yang hidup di air",
+                                        "author": "hmd",
+                                        "created_at": "2024-06-12T07:11:32.000000Z",
+                                        "likes": 0,
+                                        "followers": 0,
+                                        "comments": [
+                                            {
+                                                "id": 1,
+                                                "message": "tes komen",
+                                                "author": {
+                                                    "id": 1,
+                                                    "username": "arsyad"
+                                                },
+                                                "created_at": "2024-06-04T21:30:34.000000Z",
+                                                "replies": []
+                                            },
+                                            {
+                                                "id": 5,
+                                                "message": "tes komen last",
+                                                "author": {
+                                                    "id": 1,
+                                                    "username": "arsyad"
+                                                },
+                                                "created_at": "2024-06-04T22:01:17.000000Z",
+                                                "replies": [
+                                                    {
+                                                        "id": 1,
+                                                        "message": "tes reply",
+                                                        "author": {
+                                                            "id": 1,
+                                                            "username": "arsyad"
+                                                        },
+                                                        "created_at": "2024-06-04T22:03:57.000000Z"
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "tags": [
+                                            "fun",
+                                            "education",
+                                            "fish"
+                                        ],
+                                        "images": [
+                                            "https://storage.googleapis.com/hyfish-storage/posts/240612071135_B1K1Nz.png",
+                                            "https://storage.googleapis.com/hyfish-storage/posts/240612071138_7bJsdK.png"
+                                        ]
                                     }
+                                },
+                                "schema": {
+                                    "$ref": "#/components/postResponseSchema"
                                 }
                             }
                         }
@@ -1202,7 +1280,7 @@
                 }
             },
             "delete": {
-                "description": "Delete post by id",
+                "summary": "Delete post by id",
                 "tags": [
                     "Posts"
                 ],
@@ -1216,7 +1294,7 @@
                         }
                     },
                     {
-                        "name": "id",
+                        "name": "post_id",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -1229,6 +1307,11 @@
                         "description": "Success delete post by id",
                         "content": {
                             "application/json": {
+                                "example": {
+                                    "status": true,
+                                    "message": "Delete post successful",
+                                    "data": {}
+                                },
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -1237,7 +1320,8 @@
                                         },
                                         "message": {
                                             "type": "string"
-                                        }
+                                        },
+                                        "data": {}
                                     }
                                 }
                             }
@@ -1249,9 +1333,9 @@
                 }
             }
         },
-        "/api/posts/{id}/comments": {
+        "/api/posts/{post_id}/comment": {
             "post": {
-                "description": "Create new post",
+                "summary": "Create new post",
                 "tags": [
                     "Posts"
                 ],
@@ -1265,7 +1349,7 @@
                         }
                     },
                     {
-                        "name": "id",
+                        "name": "post_id",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -1277,6 +1361,9 @@
                     "description": "Create new comment",
                     "content": {
                         "application/json": {
+                            "example": {
+                                "message": "postingan yang sangat menarik"
+                            },
                             "schema": {
                                 "type": "object",
                                 "required": [
@@ -1296,33 +1383,23 @@
                         "description": "Success create new comment",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
+                                "example": {
+                                    "status": true,
+                                    "message": "Comment created successfully",
+                                    "data": {
+                                        "id": 7,
+                                        "post_id": 5,
+                                        "message": "postingan yang sangat menarik",
+                                        "author": {
+                                            "id": 7,
+                                            "username": "arsyad"
                                         },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "id": {
-                                                    "type": "number"
-                                                },
-                                                "message": {
-                                                    "type": "string"
-                                                },
-                                                "createdAt": {
-                                                    "type": "string"
-                                                },
-                                                "updatedAt": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
+                                        "created_at": "2024-06-12T08:25:42.000000Z",
+                                        "replies": []
                                     }
+                                },
+                                "schema": {
+                                    "$ref": "#/components/commentSchema"
                                 }
                             }
                         }
@@ -1333,9 +1410,9 @@
                 }
             }
         },
-        "/api/posts/{postId}/comments/{commentId}/replies": {
+        "/api/posts/{post_id}/comment/{comment_id}/reply": {
             "post": {
-                "description": "Create new reply",
+                "summary": "Create new reply",
                 "tags": [
                     "Posts"
                 ],
@@ -1349,7 +1426,7 @@
                         }
                     },
                     {
-                        "name": "postId",
+                        "name": "post_id",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -1357,7 +1434,7 @@
                         }
                     },
                     {
-                        "name": "commentId",
+                        "name": "comment_id",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -1369,6 +1446,9 @@
                     "description": "Create new reply",
                     "content": {
                         "application/json": {
+                            "example": {
+                                "message": "komen yang sangat menarik"
+                            },
                             "schema": {
                                 "type": "object",
                                 "required": [
@@ -1388,33 +1468,22 @@
                         "description": "Success create new reply",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
+                                "example": {
+                                    "status": true,
+                                    "message": "Reply created successfully",
+                                    "data": {
+                                        "id": 2,
+                                        "comment_id": 7,
+                                        "message": "komen yang sangat menarik",
+                                        "author": {
+                                            "id": 7,
+                                            "username": "arsyad"
                                         },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "id": {
-                                                    "type": "number"
-                                                },
-                                                "message": {
-                                                    "type": "string"
-                                                },
-                                                "createdAt": {
-                                                    "type": "string"
-                                                },
-                                                "updatedAt": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
+                                        "created_at": "2024-06-12T08:35:07.000000Z"
                                     }
+                                },
+                                "schema": {
+                                    "$ref": "#/components/repliesSchema"
                                 }
                             }
                         }
@@ -1425,9 +1494,9 @@
                 }
             }
         },
-        "/api/posts/{id}/like": {
+        "/api/posts/{post_id}/like": {
             "post": {
-                "description": "Liked post by id",
+                "summary": "Liked post by id",
                 "tags": [
                     "Posts"
                 ],
@@ -1441,7 +1510,7 @@
                         }
                     },
                     {
-                        "name": "id",
+                        "name": "post_id",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -1454,6 +1523,11 @@
                         "description": "Success Liked post by id",
                         "content": {
                             "application/json": {
+                                "example": {
+                                    "status": true,
+                                    "message": "Like added successfully",
+                                    "data": {}
+                                },
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -1462,7 +1536,8 @@
                                         },
                                         "message": {
                                             "type": "string"
-                                        }
+                                        },
+                                        "data": {}
                                     }
                                 }
                             }
@@ -1474,7 +1549,7 @@
                 }
             },
             "delete": {
-                "description": "Unliked post by id",
+                "summary": "Unliked post by id",
                 "tags": [
                     "Posts"
                 ],
@@ -1488,7 +1563,7 @@
                         }
                     },
                     {
-                        "name": "id",
+                        "name": "post_id",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -1501,6 +1576,11 @@
                         "description": "Success Unliked post by id",
                         "content": {
                             "application/json": {
+                                "example": {
+                                    "status": true,
+                                    "message": "Like deleted successfully",
+                                    "data": {}
+                                },
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -1509,7 +1589,8 @@
                                         },
                                         "message": {
                                             "type": "string"
-                                        }
+                                        },
+                                        "data": {}
                                     }
                                 }
                             }
@@ -1521,9 +1602,9 @@
                 }
             }
         },
-        "/api/posts/{id}/follow": {
+        "/api/posts/{post_id}/follow": {
             "post": {
-                "description": "Followed post by id",
+                "summary": "Followed post by id",
                 "tags": [
                     "Posts"
                 ],
@@ -1537,7 +1618,7 @@
                         }
                     },
                     {
-                        "name": "id",
+                        "name": "post_id",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -1550,6 +1631,11 @@
                         "description": "Success followed post by id",
                         "content": {
                             "application/json": {
+                                "example": {
+                                    "status": true,
+                                    "message": "Follow added successfully",
+                                    "data": {}
+                                },
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -1558,7 +1644,8 @@
                                         },
                                         "message": {
                                             "type": "string"
-                                        }
+                                        },
+                                        "data": {}
                                     }
                                 }
                             }
@@ -1570,7 +1657,7 @@
                 }
             },
             "delete": {
-                "description": "Unfollowed post by id",
+                "summary": "Unfollowed post by id",
                 "tags": [
                     "Posts"
                 ],
@@ -1584,7 +1671,7 @@
                         }
                     },
                     {
-                        "name": "id",
+                        "name": "post_id",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -1597,6 +1684,11 @@
                         "description": "Success Unfollowed post by id",
                         "content": {
                             "application/json": {
+                                "example": {
+                                    "status": true,
+                                    "message": "Follow deleted successfully",
+                                    "data": {}
+                                },
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -1605,7 +1697,8 @@
                                         },
                                         "message": {
                                             "type": "string"
-                                        }
+                                        },
+                                        "data": {}
                                     }
                                 }
                             }
@@ -2119,6 +2212,333 @@
                             }
                         }
                     }
+                }
+            }
+        },
+        "captureSchema": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "boolean"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "data":{
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "number"
+                        },
+                        "result": {
+                            "type": "string"
+                        },
+                        "image_url": {
+                            "type": "string"
+                        },
+                        "rate": {
+                            "type": "number"
+                        },
+                        "user_id": {
+                            "type": "number"
+                        },
+                        "fish_id": {
+                            "type": "number"
+                        },
+                        "updated_at": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Timestamp in ISO 8601 format with microseconds"
+                        },
+                        "created_at": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Timestamp in ISO 8601 format with microseconds"
+                        }
+                    }
+                
+                }
+            }
+        },
+        "multiCapturesSchema": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "boolean"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "data":{
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "number"
+                            },
+                            "result": {
+                                "type": "string"
+                            },
+                            "image_url": {
+                                "type": "string"
+                            },
+                            "rate": {
+                                "type": "number"
+                            },
+                            "user_id": {
+                                "type": "number"
+                            },
+                            "fish_id": {
+                                "type": "number"
+                            },
+                            "updated_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Timestamp in ISO 8601 format with microseconds"
+                            },
+                            "created_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Timestamp in ISO 8601 format with microseconds"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "fishSchema": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Timestamp in ISO 8601 format with microseconds"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Timestamp in ISO 8601 format with microseconds"
+                },
+                "recipes": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "number"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "ingredient": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "amount": {
+                                            "type": "number"
+                                        },
+                                        "measurement": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "steps": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "order": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "postRequestSchema": {
+            "type": "object",
+            "required": [
+                "title",
+                "body",
+                "tags"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "body": {
+                    "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["name"],
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["image"],
+                        "properties": {
+                            "image": {
+                                "type": "string",
+                                "format": "binary",
+                                "description": "image to be predicted"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "postResponseSchema": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "boolean"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "number"
+                        },
+                        "title": {
+                            "type": "string"
+                        },
+                        "body": {
+                            "type": "string"
+                        },
+                        "author": {
+                            "type": "string"
+                        },
+                        "created_at": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Timestamp in ISO 8601 format with microseconds"
+                        },
+                        "likes": {
+                            "type": "number"
+                        },
+                        "followers": {
+                            "type": "number"
+                        },
+                        "comments": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/commentSchema"
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "images": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                
+                }
+            }
+        },
+        "commentSchema": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "author": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "number"
+                        },
+                        "username": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Timestamp in ISO 8601 format with microseconds"
+                },
+                "replies": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/components/repliesSchema"
+                    }
+                }
+            }
+        },
+        "repliesSchema": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "author": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "number"
+                        },
+                        "username": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Timestamp in ISO 8601 format with microseconds"
                 }
             }
         }

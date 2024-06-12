@@ -214,6 +214,33 @@ class PostController extends ResponseController
                 $tag_names[] = $tag->name;
             }
 
+            $comments = [];
+            foreach($post->comments as $comment) {
+                $replies = [];
+                foreach($comment->replies as $reply) {
+                    $replies[] = [
+                        'id' => $reply->id,
+                        'message' => $reply->message,
+                        'author' => [
+                            'id' => $reply->user->id,
+                            'username' => $reply->user->username,
+                        ],
+                        'created_at' => $reply->created_at
+                    ];
+                }
+
+                $comments[] = [
+                    'id' => $comment->id,
+                    'message' => $comment->message,
+                    'author' => [
+                        'id' => $comment->user->id,
+                        'username' => $comment->user->username,
+                    ],
+                    'created_at' => $comment->created_at,
+                    'replies' => $replies
+                ];
+            }
+
             $response = [
                 'id' => $post->id,
                 'title' => $post->title,
@@ -222,7 +249,7 @@ class PostController extends ResponseController
                 'created_at' => $post->created_at,
                 'likes' => $post->likes,
                 'followers' => $post->followers,
-                'comments' => $post->comments,
+                'comments' => $comments,
                 'tags' => $tag_names,
                 'images' => $image_urls
             ];
