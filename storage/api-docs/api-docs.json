@@ -1739,148 +1739,71 @@
                                             "id": 1,
                                             "title": "The Importance of Sustainable Fisheries",
                                             "body": "Sustainable fisheries ensure that fish populations remain healthy and that ecosystems are balanced. This article explores various sustainable practices and their impact on marine life.",
-                                            "user_id": 1,
-                                            "created_at": "2024-06-12T04:42:54.000000Z",
-                                            "updated_at": "2024-06-12T04:42:54.000000Z",
+                                            "author": "admin",
+                                            "created_at": "2024-06-12T09:17:10.000000Z",
                                             "likes": 2,
                                             "followers": 1,
                                             "comments": [
                                                 {
                                                     "id": 1,
                                                     "message": "Very good information!",
-                                                    "user_id": 2,
-                                                    "post_id": 1,
-                                                    "created_at": "2024-06-12T04:42:54.000000Z",
-                                                    "updated_at": "2024-06-12T04:42:54.000000Z",
+                                                    "author": {
+                                                        "id": 2,
+                                                        "username": "arsyad"
+                                                    },
+                                                    "created_at": "2024-06-12T09:17:10.000000Z",
                                                     "replies": []
                                                 },
                                                 {
                                                     "id": 2,
                                                     "message": "I found this section very helpful.",
-                                                    "user_id": 3,
-                                                    "post_id": 1,
-                                                    "created_at": "2024-06-12T04:42:54.000000Z",
-                                                    "updated_at": "2024-06-12T04:42:54.000000Z",
+                                                    "author": {
+                                                        "id": 3,
+                                                        "username": "atha"
+                                                    },
+                                                    "created_at": "2024-06-12T09:17:10.000000Z",
                                                     "replies": [
                                                         {
                                                             "id": 1,
                                                             "message": "me too",
-                                                            "user_id": 4,
-                                                            "comment_id": 2,
-                                                            "created_at": "2024-06-12T04:42:54.000000Z",
-                                                            "updated_at": "2024-06-12T04:42:54.000000Z"
+                                                            "author": {
+                                                                "id": 4,
+                                                                "username": "yanto"
+                                                            },
+                                                            "created_at": "2024-06-12T09:17:10.000000Z"
                                                         }
                                                     ]
                                                 }
+                                            ],
+                                            "tags": [
+                                                "fish",
+                                                "technology"
+                                            ],
+                                            "images": [
+                                                "https://storage.googleapis.com/hyfish-storage/posts/240612071135_B1K1Nz.png"
                                             ]
                                         },
                                         {
                                             "id": 2,
                                             "title": "Guide: Effective Fisheries Management",
                                             "body": "Fisheries management is crucial for maintaining the balance of marine ecosystems. This guide by our admin covers the best practices and strategies for effective fisheries management.",
-                                            "user_id": 1,
-                                            "created_at": "2024-06-12T04:42:54.000000Z",
-                                            "updated_at": "2024-06-12T04:42:54.000000Z",
+                                            "author": "admin",
+                                            "created_at": "2024-06-12T09:17:10.000000Z",
                                             "likes": 2,
                                             "followers": 1,
-                                            "comments": []
+                                            "comments": [],
+                                            "tags": [
+                                                "fish"
+                                            ],
+                                            "images": [
+                                                "https://storage.googleapis.com/hyfish-storage/posts/240612071138_7bJsdK.png",
+                                                "https://storage.googleapis.com/hyfish-storage/posts/240604012234_he9QtK.jpg"
+                                            ]
                                         }
                                     ]
                                 },
                                 "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "number"
-                                                    },
-                                                    "title": {
-                                                        "type": "string"
-                                                    },
-                                                    "body": {
-                                                        "type": "string"
-                                                    },
-                                                    "user_id": {
-                                                        "type": "number"
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string"
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string"
-                                                    },
-                                                    "likes": {
-                                                        "type": "number"
-                                                    },
-                                                    "followers": {
-                                                        "type": "number"
-                                                    },
-                                                    "comments": {
-                                                        "type": "array",
-                                                        "items": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "id": {
-                                                                    "type": "number"
-                                                                },
-                                                                "message": {
-                                                                    "type": "string"
-                                                                },
-                                                                "user_id": {
-                                                                    "type": "number"
-                                                                },
-                                                                "post_id": {
-                                                                    "type": "number"
-                                                                },
-                                                                "created_at": {
-                                                                    "type": "string"
-                                                                },
-                                                                "updated_at": {
-                                                                    "type": "string"
-                                                                },
-                                                                "replies": {
-                                                                    "type": "array",
-                                                                    "items": {
-                                                                        "type": "object",
-                                                                        "properties": {
-                                                                            "id": {
-                                                                                "type": "number"
-                                                                            },
-                                                                            "message": {
-                                                                                "type": "string"
-                                                                            },
-                                                                            "user_id": {
-                                                                                "type": "number"
-                                                                            },
-                                                                            "comment_id": {
-                                                                                "type": "number"
-                                                                            },
-                                                                            "created_at": {
-                                                                                "type": "string"
-                                                                            },
-                                                                            "updated_at": {
-                                                                                "type": "string"
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
+                                    "$ref": "#/components/postResponseSchema"
                                 }
                             }
                         }
@@ -1928,109 +1851,23 @@
                                             "id": 2,
                                             "title": "Guide: Effective Fisheries Management",
                                             "body": "Fisheries management is crucial for maintaining the balance of marine ecosystems. This guide by our admin covers the best practices and strategies for effective fisheries management.",
-                                            "user_id": 1,
-                                            "created_at": "2024-06-12T04:42:54.000000Z",
-                                            "updated_at": "2024-06-12T04:42:54.000000Z",
+                                            "author": "admin",
+                                            "created_at": "2024-06-12T09:17:10.000000Z",
                                             "likes": 2,
                                             "followers": 1,
-                                            "comments": []
+                                            "comments": [],
+                                            "tags": [
+                                                "fish"
+                                            ],
+                                            "images": [
+                                                "https://storage.googleapis.com/hyfish-storage/posts/240612071138_7bJsdK.png",
+                                                "https://storage.googleapis.com/hyfish-storage/posts/240604012234_he9QtK.jpg"
+                                            ]
                                         }
                                     ]
                                 },
                                 "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "number"
-                                                    },
-                                                    "title": {
-                                                        "type": "string"
-                                                    },
-                                                    "body": {
-                                                        "type": "string"
-                                                    },
-                                                    "user_id": {
-                                                        "type": "number"
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string"
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string"
-                                                    },
-                                                    "likes": {
-                                                        "type": "number"
-                                                    },
-                                                    "followers": {
-                                                        "type": "number"
-                                                    },
-                                                    "comments": {
-                                                        "type": "array",
-                                                        "items": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "id": {
-                                                                    "type": "number"
-                                                                },
-                                                                "message": {
-                                                                    "type": "string"
-                                                                },
-                                                                "user_id": {
-                                                                    "type": "number"
-                                                                },
-                                                                "post_id": {
-                                                                    "type": "number"
-                                                                },
-                                                                "created_at": {
-                                                                    "type": "string"
-                                                                },
-                                                                "updated_at": {
-                                                                    "type": "string"
-                                                                },
-                                                                "replies": {
-                                                                    "type": "array",
-                                                                    "items": {
-                                                                        "type": "object",
-                                                                        "properties": {
-                                                                            "id": {
-                                                                                "type": "number"
-                                                                            },
-                                                                            "message": {
-                                                                                "type": "string"
-                                                                            },
-                                                                            "user_id": {
-                                                                                "type": "number"
-                                                                            },
-                                                                            "comment_id": {
-                                                                                "type": "number"
-                                                                            },
-                                                                            "created_at": {
-                                                                                "type": "string"
-                                                                            },
-                                                                            "updated_at": {
-                                                                                "type": "string"
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
+                                    "$ref": "#/components/postResponseSchema"
                                 }
                             }
                         }
@@ -2070,175 +1907,100 @@
                                             "id": 3,
                                             "title": "Innovations in Fisheries Technology",
                                             "body": "Join the discussion on the latest technological advancements in fisheries. Share your thoughts and learn from others about new tools and methods improving the fishing industry.",
-                                            "user_id": 2,
-                                            "created_at": "2024-06-12T04:42:54.000000Z",
-                                            "updated_at": "2024-06-12T04:42:54.000000Z",
+                                            "author": "arsyad",
+                                            "created_at": "2024-06-12T09:17:10.000000Z",
                                             "likes": 1,
                                             "followers": 0,
                                             "comments": [
                                                 {
                                                     "id": 3,
                                                     "message": "Interesting.",
-                                                    "user_id": 4,
-                                                    "post_id": 3,
-                                                    "created_at": "2024-06-12T04:42:54.000000Z",
-                                                    "updated_at": "2024-06-12T04:42:54.000000Z",
+                                                    "author": {
+                                                        "id": 4,
+                                                        "username": "yanto"
+                                                    },
+                                                    "created_at": "2024-06-12T09:17:10.000000Z",
                                                     "replies": []
                                                 }
-                                            ]
+                                            ],
+                                            "tags": [
+                                                "fish",
+                                                "technology"
+                                            ],
+                                            "images": []
                                         },
                                         {
                                             "id": 4,
                                             "title": "Best Shrimp Recipes",
                                             "body": "Shrimp is very tasty ...",
-                                            "user_id": 3,
-                                            "created_at": "2024-06-12T04:42:54.000000Z",
-                                            "updated_at": "2024-06-12T04:42:54.000000Z",
+                                            "author": "atha",
+                                            "created_at": "2024-06-12T09:17:10.000000Z",
                                             "likes": 3,
                                             "followers": 2,
                                             "comments": [
                                                 {
                                                     "id": 4,
                                                     "message": "Shrimp never goes wrong!",
-                                                    "user_id": 2,
-                                                    "post_id": 4,
-                                                    "created_at": "2024-06-12T04:42:54.000000Z",
-                                                    "updated_at": "2024-06-12T04:42:54.000000Z",
+                                                    "author": {
+                                                        "id": 2,
+                                                        "username": "arsyad"
+                                                    },
+                                                    "created_at": "2024-06-12T09:17:10.000000Z",
                                                     "replies": [
                                                         {
                                                             "id": 2,
                                                             "message": "HAHHAHA",
-                                                            "user_id": 3,
-                                                            "comment_id": 4,
-                                                            "created_at": "2024-06-12T04:42:54.000000Z",
-                                                            "updated_at": "2024-06-12T04:42:54.000000Z"
+                                                            "author": {
+                                                                "id": 3,
+                                                                "username": "atha"
+                                                            },
+                                                            "created_at": "2024-06-12T09:17:10.000000Z"
                                                         },
                                                         {
                                                             "id": 3,
                                                             "message": "fr fr",
-                                                            "user_id": 2,
-                                                            "comment_id": 4,
-                                                            "created_at": "2024-06-12T04:42:54.000000Z",
-                                                            "updated_at": "2024-06-12T04:42:54.000000Z"
+                                                            "author": {
+                                                                "id": 2,
+                                                                "username": "arsyad"
+                                                            },
+                                                            "created_at": "2024-06-12T09:17:10.000000Z"
                                                         }
                                                     ]
                                                 },
                                                 {
                                                     "id": 5,
                                                     "message": "Wow",
-                                                    "user_id": 1,
-                                                    "post_id": 4,
-                                                    "created_at": "2024-06-12T04:42:54.000000Z",
-                                                    "updated_at": "2024-06-12T04:42:54.000000Z",
+                                                    "author": {
+                                                        "id": 1,
+                                                        "username": "admin"
+                                                    },
+                                                    "created_at": "2024-06-12T09:17:10.000000Z",
                                                     "replies": [
                                                         {
                                                             "id": 4,
                                                             "message": "Wow",
-                                                            "user_id": 3,
-                                                            "comment_id": 5,
-                                                            "created_at": "2024-06-12T04:42:54.000000Z",
-                                                            "updated_at": "2024-06-12T04:42:54.000000Z"
+                                                            "author": {
+                                                                "id": 3,
+                                                                "username": "atha"
+                                                            },
+                                                            "created_at": "2024-06-12T09:17:10.000000Z"
                                                         }
                                                     ]
                                                 }
+                                            ],
+                                            "tags": [
+                                                "cooking",
+                                                "shrimp"
+                                            ],
+                                            "images": [
+                                                "https://storage.googleapis.com/hyfish-storage/posts/240612071135_B1K1Nz.png",
+                                                "https://storage.googleapis.com/hyfish-storage/posts/240606025351_vIgm6S.png"
                                             ]
                                         }
                                     ]
                                 },
                                 "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "number"
-                                                    },
-                                                    "title": {
-                                                        "type": "string"
-                                                    },
-                                                    "body": {
-                                                        "type": "string"
-                                                    },
-                                                    "user_id": {
-                                                        "type": "number"
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string"
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string"
-                                                    },
-                                                    "likes": {
-                                                        "type": "number"
-                                                    },
-                                                    "followers": {
-                                                        "type": "number"
-                                                    },
-                                                    "comments": {
-                                                        "type": "array",
-                                                        "items": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "id": {
-                                                                    "type": "number"
-                                                                },
-                                                                "message": {
-                                                                    "type": "string"
-                                                                },
-                                                                "user_id": {
-                                                                    "type": "number"
-                                                                },
-                                                                "post_id": {
-                                                                    "type": "number"
-                                                                },
-                                                                "created_at": {
-                                                                    "type": "string"
-                                                                },
-                                                                "updated_at": {
-                                                                    "type": "string"
-                                                                },
-                                                                "replies": {
-                                                                    "type": "array",
-                                                                    "items": {
-                                                                        "type": "object",
-                                                                        "properties": {
-                                                                            "id": {
-                                                                                "type": "number"
-                                                                            },
-                                                                            "message": {
-                                                                                "type": "string"
-                                                                            },
-                                                                            "user_id": {
-                                                                                "type": "number"
-                                                                            },
-                                                                            "comment_id": {
-                                                                                "type": "number"
-                                                                            },
-                                                                            "created_at": {
-                                                                                "type": "string"
-                                                                            },
-                                                                            "updated_at": {
-                                                                                "type": "string"
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
+                                    "$ref": "#/components/postResponseSchema"
                                 }
                             }
                         }
@@ -2286,119 +2048,32 @@
                                             "id": 3,
                                             "title": "Innovations in Fisheries Technology",
                                             "body": "Join the discussion on the latest technological advancements in fisheries. Share your thoughts and learn from others about new tools and methods improving the fishing industry.",
-                                            "user_id": 2,
-                                            "created_at": "2024-06-12T04:42:54.000000Z",
-                                            "updated_at": "2024-06-12T04:42:54.000000Z",
+                                            "author": "arsyad",
+                                            "created_at": "2024-06-12T09:17:10.000000Z",
                                             "likes": 1,
                                             "followers": 0,
                                             "comments": [
                                                 {
                                                     "id": 3,
                                                     "message": "Interesting.",
-                                                    "user_id": 4,
-                                                    "post_id": 3,
-                                                    "created_at": "2024-06-12T04:42:54.000000Z",
-                                                    "updated_at": "2024-06-12T04:42:54.000000Z",
+                                                    "author": {
+                                                        "id": 4,
+                                                        "username": "yanto"
+                                                    },
+                                                    "created_at": "2024-06-12T09:17:10.000000Z",
                                                     "replies": []
                                                 }
-                                            ]
+                                            ],
+                                            "tags": [
+                                                "fish",
+                                                "technology"
+                                            ],
+                                            "images": []
                                         }
                                     ]
                                 },
                                 "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "number"
-                                                    },
-                                                    "title": {
-                                                        "type": "string"
-                                                    },
-                                                    "body": {
-                                                        "type": "string"
-                                                    },
-                                                    "user_id": {
-                                                        "type": "number"
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string"
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string"
-                                                    },
-                                                    "likes": {
-                                                        "type": "number"
-                                                    },
-                                                    "followers": {
-                                                        "type": "number"
-                                                    },
-                                                    "comments": {
-                                                        "type": "array",
-                                                        "items": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "id": {
-                                                                    "type": "number"
-                                                                },
-                                                                "message": {
-                                                                    "type": "string"
-                                                                },
-                                                                "user_id": {
-                                                                    "type": "number"
-                                                                },
-                                                                "post_id": {
-                                                                    "type": "number"
-                                                                },
-                                                                "created_at": {
-                                                                    "type": "string"
-                                                                },
-                                                                "updated_at": {
-                                                                    "type": "string"
-                                                                },
-                                                                "replies": {
-                                                                    "type": "array",
-                                                                    "items": {
-                                                                        "type": "object",
-                                                                        "properties": {
-                                                                            "id": {
-                                                                                "type": "number"
-                                                                            },
-                                                                            "message": {
-                                                                                "type": "string"
-                                                                            },
-                                                                            "user_id": {
-                                                                                "type": "number"
-                                                                            },
-                                                                            "comment_id": {
-                                                                                "type": "number"
-                                                                            },
-                                                                            "created_at": {
-                                                                                "type": "string"
-                                                                            },
-                                                                            "updated_at": {
-                                                                                "type": "string"
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
+                                    "$ref": "#/components/postResponseSchema"
                                 }
                             }
                         }
