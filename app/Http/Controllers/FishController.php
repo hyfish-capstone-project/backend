@@ -11,13 +11,58 @@ class FishController extends ResponseController
     public function getAllFishes(Request $request)
     {
         try {
-            $fishes = Fish::with(['recipes' => function($query) {
+            $fishes = Fish::with(['recipes' => function ($query) {
                 $query->with('ingredients');
                 $query->with('steps');
-            }])->get();
-            return $this->sendResponse('Get fishes successful', $fishes);
-        }
-        catch (Exception $e){
+            }])->with('images')->get();
+
+            $formattedFishes = $fishes->map(function ($fish) {
+                $image_urls = [];
+                foreach ($fish->images as $image) {
+                    $image_urls[] = $image->image_url;
+                }
+
+                $recipes = [];
+                foreach ($fish->recipes as $recipe) {
+                    $ingredients = [];
+                    foreach ($recipe->ingredients as $ingredient) {
+                        $ingredients[] = [
+                            'id' => $ingredient->id,
+                            'name' => $ingredient->name,
+                            'amount' => $ingredient->pivot->amount,
+                            'measurement' => $ingredient->pivot->measurement
+                        ];
+                    }
+
+                    $steps = [];
+                    foreach ($recipe->steps as $step) {
+                        $steps[] = [
+                            'id' => $step->id,
+                            'description' => $step->description,
+                            'order' => $step->order,
+                        ];
+                    }
+
+                    $recipes[] = [
+                        'id' => $recipe->id,
+                        'name' => $recipe->name,
+                        'ingredients' => $ingredients,
+                        'steps' => $steps
+                    ];
+                }
+
+                return [
+                    'id' => $fish->id,
+                    'name' => $fish->name,
+                    'description' => $fish->description,
+                    'created_at' => $fish->created_at,
+                    'recipes' => $recipes,
+                    'images' => $image_urls
+                ];
+            });
+
+            return $this->sendResponse('Get fishes successful', $formattedFishes);
+        } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
@@ -25,13 +70,56 @@ class FishController extends ResponseController
     public function getFishByID(Request $request, $fish_id)
     {
         try {
-            $fishes = Fish::with(['recipes' => function($query) {
+            $fish = Fish::with(['recipes' => function ($query) {
                 $query->with('ingredients');
                 $query->with('steps');
-            }])->findOrFail($fish_id);
-            return $this->sendResponse('Get fish by ID successful', $fishes);
-        }
-        catch (Exception $e){
+            }])->with('images')->findOrFail($fish_id);
+
+            $image_urls = [];
+            foreach ($fish->images as $image) {
+                $image_urls[] = $image->image_url;
+            }
+
+            $recipes = [];
+            foreach ($fish->recipes as $recipe) {
+                $ingredients = [];
+                foreach ($recipe->ingredients as $ingredient) {
+                    $ingredients[] = [
+                        'id' => $ingredient->id,
+                        'name' => $ingredient->name,
+                        'amount' => $ingredient->pivot->amount,
+                        'measurement' => $ingredient->pivot->measurement
+                    ];
+                }
+
+                $steps = [];
+                foreach ($recipe->steps as $step) {
+                    $steps[] = [
+                        'id' => $step->id,
+                        'description' => $step->description,
+                        'order' => $step->order,
+                    ];
+                }
+
+                $recipes[] = [
+                    'id' => $recipe->id,
+                    'name' => $recipe->name,
+                    'ingredients' => $ingredients,
+                    'steps' => $steps
+                ];
+            }
+
+            $formattedFish = [
+                'id' => $fish->id,
+                'name' => $fish->name,
+                'description' => $fish->description,
+                'created_at' => $fish->created_at,
+                'recipes' => $recipes,
+                'images' => $image_urls
+            ];
+
+            return $this->sendResponse('Get fish by ID successful', $formattedFish);
+        } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }
     }
