@@ -53,7 +53,7 @@
                             "example": {
                                 "username": "arsyad",
                                 "email": "emailarsyad@gmail.com",
-                                "password": "secret123", 
+                                "password": "secret123",
                                 "confirm_password": "secret123"
                             },
                             "schema": {
@@ -802,19 +802,344 @@
                                     "data": [
                                         {
                                             "id": 1,
-                                            "name": "ikan indosiar",
-                                            "description": "value_for_description",
-                                            "created_at": "2024-06-01T09:34:02.000000Z",
-                                            "updated_at": "2024-06-01T09:34:02.000000Z",
-                                            "recipes": []
+                                            "name": "Black Sea Sprat",
+                                            "description": "The Black Sea sprat or Pontic sprat, Clupeonella cultriventris, is a small fish of the herring family, Clupeidae. It is found in the Black Sea and Sea of Azov and rivers of its basins: Danube, Dnister, Dnipro, Southern Bug, Don, Kuban. It has white-grey flesh and silver-grey scales. A typical size is 10 cm.",
+                                            "created_at": "2024-06-12T14:21:07.000000Z",
+                                            "recipes": [
+                                                {
+                                                    "id": 1,
+                                                    "name": "Smoked Sprats Sandwich Spread",
+                                                    "ingredients": [
+                                                        {
+                                                            "id": 1,
+                                                            "name": "Tomato",
+                                                            "amount": 250,
+                                                            "measurement": "gram"
+                                                        },
+                                                        {
+                                                            "id": 2,
+                                                            "name": "Olive Oil",
+                                                            "amount": 1,
+                                                            "measurement": "tablespoon"
+                                                        },
+                                                        {
+                                                            "id": 3,
+                                                            "name": "Herbs",
+                                                            "amount": 1,
+                                                            "measurement": "teaspoon"
+                                                        },
+                                                        {
+                                                            "id": 4,
+                                                            "name": "Smoked Sprat",
+                                                            "amount": 100,
+                                                            "measurement": "gram"
+                                                        },
+                                                        {
+                                                            "id": 5,
+                                                            "name": "Salt",
+                                                            "amount": 1,
+                                                            "measurement": "pinch"
+                                                        },
+                                                        {
+                                                            "id": 6,
+                                                            "name": "Black Pepper",
+                                                            "amount": 1,
+                                                            "measurement": "pinch"
+                                                        },
+                                                        {
+                                                            "id": 7,
+                                                            "name": "Pickled Onion",
+                                                            "amount": 2,
+                                                            "measurement": "tablespoon"
+                                                        },
+                                                        {
+                                                            "id": 8,
+                                                            "name": "Baguette",
+                                                            "amount": 1,
+                                                            "measurement": "whole"
+                                                        }
+                                                    ],
+                                                    "steps": [
+                                                        {
+                                                            "id": 1,
+                                                            "description": "Cut the tomatoes into small cubes, put them in a pot along with the olive oil and herbs. Simmer over a medium heat for 20-25 minutes, or until the tomato juice has almost completely evaporated, then cool it down.",
+                                                            "order": 1
+                                                        },
+                                                        {
+                                                            "id": 2,
+                                                            "description": "Put smoked sprats, fried tomatoes, a pinch of salt and pepper into a tall mug. Blend to a creamy, uniform consistency.",
+                                                            "order": 2
+                                                        },
+                                                        {
+                                                            "id": 3,
+                                                            "description": "Cut the baguette into thin slices, spread each with sprat paste. Arrange the sprouts, pickled onion and smoked sprats on the paste.",
+                                                            "order": 3
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "name": "Egg and Sprats Canapes",
+                                                    "ingredients": [
+                                                        {
+                                                            "id": 6,
+                                                            "name": "Black Pepper",
+                                                            "amount": 1,
+                                                            "measurement": "pinch"
+                                                        },
+                                                        {
+                                                            "id": 7,
+                                                            "name": "Pickled Onion",
+                                                            "amount": 1,
+                                                            "measurement": "pinch"
+                                                        },
+                                                        {
+                                                            "id": 9,
+                                                            "name": "Bread",
+                                                            "amount": 6,
+                                                            "measurement": "slice"
+                                                        },
+                                                        {
+                                                            "id": 10,
+                                                            "name": "Egg",
+                                                            "amount": 3,
+                                                            "measurement": "whole"
+                                                        },
+                                                        {
+                                                            "id": 11,
+                                                            "name": "Sprat",
+                                                            "amount": 200,
+                                                            "measurement": "gram"
+                                                        },
+                                                        {
+                                                            "id": 12,
+                                                            "name": "Mayonnaise",
+                                                            "amount": 1,
+                                                            "measurement": "whole"
+                                                        },
+                                                        {
+                                                            "id": 13,
+                                                            "name": "Dill",
+                                                            "amount": 1,
+                                                            "measurement": "whole"
+                                                        },
+                                                        {
+                                                            "id": 14,
+                                                            "name": "Chive",
+                                                            "amount": 2,
+                                                            "measurement": "tablespoon"
+                                                        },
+                                                        {
+                                                            "id": 15,
+                                                            "name": "Lemon",
+                                                            "amount": 1,
+                                                            "measurement": "cut"
+                                                        },
+                                                        {
+                                                            "id": 16,
+                                                            "name": "Caper",
+                                                            "amount": 1,
+                                                            "measurement": "tablespoon"
+                                                        },
+                                                        {
+                                                            "id": 17,
+                                                            "name": "Red Onion",
+                                                            "amount": 1,
+                                                            "measurement": "whole"
+                                                        }
+                                                    ],
+                                                    "steps": [
+                                                        {
+                                                            "id": 4,
+                                                            "description": "Hard boil the eggs, cool, peel, and chop finely.",
+                                                            "order": 1
+                                                        },
+                                                        {
+                                                            "id": 5,
+                                                            "description": "Toast the bread slices lightly in butter until golden brown.",
+                                                            "order": 2
+                                                        },
+                                                        {
+                                                            "id": 6,
+                                                            "description": "Spread a thin layer of mayonnaise on the toasted bread, top with chopped eggs, then place a sprat on top of each. Garnish with dill, chives, and any other optional toppings like capers or red onion.",
+                                                            "order": 3
+                                                        },
+                                                        {
+                                                            "id": 7,
+                                                            "description": "Add salt and pepper to taste.",
+                                                            "order": 4
+                                                        },
+                                                        {
+                                                            "id": 8,
+                                                            "description": "Arrange on a platter and serve with lemon wedges if desired.",
+                                                            "order": 5
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "images": [
+                                                "https://storage.googleapis.com/hyfish-storage/fishes/images/black-sea-sprat-1.jpg",
+                                                "https://storage.googleapis.com/hyfish-storage/fishes/images/black-sea-sprat-2.jpg",
+                                                "https://storage.googleapis.com/hyfish-storage/fishes/images/black-sea-sprat-3.jpg"
+                                            ]
                                         },
                                         {
                                             "id": 2,
-                                            "name": "Black Sea Sprat",
-                                            "description": "IWAK Black Sea Sprat",
-                                            "created_at": "2024-06-09T04:46:26.000000Z",
-                                            "updated_at": "2024-06-09T04:46:26.000000Z",
-                                            "recipes": []
+                                            "name": "Gilt-Head Bream",
+                                            "description": "The gilt-head bream, also known as the gilthead, gilt-head seabream or silver seabream, is a species of marine ray-finned fish belonging to the family Sparidae, the seabreams or porgies. This fish is found in the Eastern Atlantic and the Mediterranean.",
+                                            "created_at": "2024-06-12T14:21:07.000000Z",
+                                            "recipes": [
+                                                {
+                                                    "id": 3,
+                                                    "name": "Roasted Gilt Head Bream",
+                                                    "ingredients": [
+                                                        {
+                                                            "id": 2,
+                                                            "name": "Olive Oil",
+                                                            "amount": 120,
+                                                            "measurement": "ml"
+                                                        },
+                                                        {
+                                                            "id": 5,
+                                                            "name": "Salt",
+                                                            "amount": 1,
+                                                            "measurement": "pinch"
+                                                        },
+                                                        {
+                                                            "id": 18,
+                                                            "name": "Gilt Head Bream",
+                                                            "amount": 1000,
+                                                            "measurement": "gram"
+                                                        },
+                                                        {
+                                                            "id": 19,
+                                                            "name": "Potato",
+                                                            "amount": 500,
+                                                            "measurement": "gram"
+                                                        },
+                                                        {
+                                                            "id": 20,
+                                                            "name": "Small Onion",
+                                                            "amount": 120,
+                                                            "measurement": "gram"
+                                                        },
+                                                        {
+                                                            "id": 21,
+                                                            "name": "Lemon",
+                                                            "amount": 1,
+                                                            "measurement": "whole"
+                                                        },
+                                                        {
+                                                            "id": 22,
+                                                            "name": "Bay Leaf",
+                                                            "amount": 2,
+                                                            "measurement": "leaf"
+                                                        },
+                                                        {
+                                                            "id": 23,
+                                                            "name": "White Pepper",
+                                                            "amount": 1,
+                                                            "measurement": "pinch"
+                                                        },
+                                                        {
+                                                            "id": 24,
+                                                            "name": "Parsley Leaf",
+                                                            "amount": 5,
+                                                            "measurement": "leaf"
+                                                        },
+                                                        {
+                                                            "id": 25,
+                                                            "name": "Garlic",
+                                                            "amount": 4,
+                                                            "measurement": "clove"
+                                                        },
+                                                        {
+                                                            "id": 26,
+                                                            "name": "Water",
+                                                            "amount": 50,
+                                                            "measurement": "ml"
+                                                        },
+                                                        {
+                                                            "id": 27,
+                                                            "name": "Vinegar",
+                                                            "amount": 50,
+                                                            "measurement": "ml"
+                                                        }
+                                                    ],
+                                                    "steps": [
+                                                        {
+                                                            "id": 9,
+                                                            "description": "Pour a cup of oil into a frying pan and place over medium heat. When hot, add the peeled and sliced potatoes. Fry them for a couple of minutes on each side.",
+                                                            "order": 1
+                                                        },
+                                                        {
+                                                            "id": 10,
+                                                            "description": "Remove them on kitchen paper to absorb the extra oil and keep them for later use.",
+                                                            "order": 2
+                                                        },
+                                                        {
+                                                            "id": 11,
+                                                            "description": "Add the julienned onion and fry in the same oil for 4-5 minutes. Remove from the pan and place on kitchen paper for later use.",
+                                                            "order": 3
+                                                        },
+                                                        {
+                                                            "id": 12,
+                                                            "description": "For this recipe, I asked my fishmonger to prepare the gilthead bream for roasting whole, so He only cut off the fins, removed the gills, guts and scales, and finally washed it well with water.",
+                                                            "order": 4
+                                                        },
+                                                        {
+                                                            "id": 13,
+                                                            "description": "Take the gilthead bream and salt and pepper it on both sides. Then make two transversal cuts on the side that you will put upwards in the roast and introduce the half slices of lemon.",
+                                                            "order": 5
+                                                        },
+                                                        {
+                                                            "id": 14,
+                                                            "description": "Line a baking tray with baking paper. Place the potatoes on the base of the tray and then the onion, which will be the bed for the gilthead bream. Put salt and pepper on the potatoes and place the fish on the bed.",
+                                                            "order": 6
+                                                        },
+                                                        {
+                                                            "id": 15,
+                                                            "description": "Line a baking tray with baking paper. Place the potatoes on the base of the tray and then the onion, which will be the bed for the gilthead bream. Put salt and pepper on the potatoes and place the fish on the bed.",
+                                                            "order": 7
+                                                        },
+                                                        {
+                                                            "id": 16,
+                                                            "description": "Add the bay leaves, a little olive oil and a couple of slices of lemon.",
+                                                            "order": 8
+                                                        },
+                                                        {
+                                                            "id": 17,
+                                                            "description": "Put the gilthead bream in a preheated oven at 180 degrees for 25 minutes.",
+                                                            "order": 9
+                                                        },
+                                                        {
+                                                            "id": 18,
+                                                            "description": "In the meantime, we are going to make the \"Majado\". You can do it with a pestle and mortar or a food processor, but in this case, I prefer to chop it with a knife.",
+                                                            "order": 10
+                                                        },
+                                                        {
+                                                            "id": 19,
+                                                            "description": "Mix the garlic and finely chopped parsley in a bowl, together with the vinegar and water. Add a little salt and mix well. This mixture will make a delicious sauce.",
+                                                            "order": 11
+                                                        },
+                                                        {
+                                                            "id": 20,
+                                                            "description": "Once the 25 minutes have elapsed, take the gilthead bream out of the oven. It is time to add the \"Majado\" to the fish and potatoes. You can save a little to put at the end if you are a fan of garlic like me.",
+                                                            "order": 12
+                                                        },
+                                                        {
+                                                            "id": 21,
+                                                            "description": "Put the gilthead bream back in the oven and cook for 5 more minutes at 190 degrees. Finally, take the fish out of the oven, and it is ready to eat.",
+                                                            "order": 13
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "images": [
+                                                "https://storage.googleapis.com/hyfish-storage/fishes/images/gilt-head-bream-1.jpg",
+                                                "https://storage.googleapis.com/hyfish-storage/fishes/images/gilt-head-bream-2.jpg",
+                                                "https://storage.googleapis.com/hyfish-storage/fishes/images/gilt-head-bream-3.jpg"
+                                            ]
                                         }
                                     ]
                                 },
@@ -877,12 +1202,162 @@
                                     "status": true,
                                     "message": "Get fish by ID successful",
                                     "data": {
-                                        "id": 1,
-                                        "name": "ikan indosiar",
-                                        "description": "value_for_description",
-                                        "created_at": "2024-06-01T09:34:02.000000Z",
-                                        "updated_at": "2024-06-01T09:34:02.000000Z",
-                                        "recipes": []
+                                        "id": 2,
+                                        "name": "Gilt-Head Bream",
+                                        "description": "The gilt-head bream, also known as the gilthead, gilt-head seabream or silver seabream, is a species of marine ray-finned fish belonging to the family Sparidae, the seabreams or porgies. This fish is found in the Eastern Atlantic and the Mediterranean.",
+                                        "created_at": "2024-06-12T14:21:07.000000Z",
+                                        "recipes": [
+                                            {
+                                                "id": 3,
+                                                "name": "Roasted Gilt Head Bream",
+                                                "ingredients": [
+                                                    {
+                                                        "id": 18,
+                                                        "name": "Gilt Head Bream",
+                                                        "amount": 1000,
+                                                        "measurement": "gram"
+                                                    },
+                                                    {
+                                                        "id": 19,
+                                                        "name": "Potato",
+                                                        "amount": 500,
+                                                        "measurement": "gram"
+                                                    },
+                                                    {
+                                                        "id": 20,
+                                                        "name": "Small Onion",
+                                                        "amount": 120,
+                                                        "measurement": "gram"
+                                                    },
+                                                    {
+                                                        "id": 21,
+                                                        "name": "Lemon",
+                                                        "amount": 1,
+                                                        "measurement": "whole"
+                                                    },
+                                                    {
+                                                        "id": 22,
+                                                        "name": "Bay Leaf",
+                                                        "amount": 2,
+                                                        "measurement": "leaf"
+                                                    },
+                                                    {
+                                                        "id": 5,
+                                                        "name": "Salt",
+                                                        "amount": 1,
+                                                        "measurement": "pinch"
+                                                    },
+                                                    {
+                                                        "id": 23,
+                                                        "name": "White Pepper",
+                                                        "amount": 1,
+                                                        "measurement": "pinch"
+                                                    },
+                                                    {
+                                                        "id": 24,
+                                                        "name": "Parsley Leaf",
+                                                        "amount": 5,
+                                                        "measurement": "leaf"
+                                                    },
+                                                    {
+                                                        "id": 2,
+                                                        "name": "Olive Oil",
+                                                        "amount": 120,
+                                                        "measurement": "ml"
+                                                    },
+                                                    {
+                                                        "id": 25,
+                                                        "name": "Garlic",
+                                                        "amount": 4,
+                                                        "measurement": "clove"
+                                                    },
+                                                    {
+                                                        "id": 26,
+                                                        "name": "Water",
+                                                        "amount": 50,
+                                                        "measurement": "ml"
+                                                    },
+                                                    {
+                                                        "id": 27,
+                                                        "name": "Vinegar",
+                                                        "amount": 50,
+                                                        "measurement": "ml"
+                                                    }
+                                                ],
+                                                "steps": [
+                                                    {
+                                                        "id": 9,
+                                                        "description": "Pour a cup of oil into a frying pan and place over medium heat. When hot, add the peeled and sliced potatoes. Fry them for a couple of minutes on each side.",
+                                                        "order": 1
+                                                    },
+                                                    {
+                                                        "id": 10,
+                                                        "description": "Remove them on kitchen paper to absorb the extra oil and keep them for later use.",
+                                                        "order": 2
+                                                    },
+                                                    {
+                                                        "id": 11,
+                                                        "description": "Add the julienned onion and fry in the same oil for 4-5 minutes. Remove from the pan and place on kitchen paper for later use.",
+                                                        "order": 3
+                                                    },
+                                                    {
+                                                        "id": 12,
+                                                        "description": "For this recipe, I asked my fishmonger to prepare the gilthead bream for roasting whole, so He only cut off the fins, removed the gills, guts and scales, and finally washed it well with water.",
+                                                        "order": 4
+                                                    },
+                                                    {
+                                                        "id": 13,
+                                                        "description": "Take the gilthead bream and salt and pepper it on both sides. Then make two transversal cuts on the side that you will put upwards in the roast and introduce the half slices of lemon.",
+                                                        "order": 5
+                                                    },
+                                                    {
+                                                        "id": 14,
+                                                        "description": "Line a baking tray with baking paper. Place the potatoes on the base of the tray and then the onion, which will be the bed for the gilthead bream. Put salt and pepper on the potatoes and place the fish on the bed.",
+                                                        "order": 6
+                                                    },
+                                                    {
+                                                        "id": 15,
+                                                        "description": "Line a baking tray with baking paper. Place the potatoes on the base of the tray and then the onion, which will be the bed for the gilthead bream. Put salt and pepper on the potatoes and place the fish on the bed.",
+                                                        "order": 7
+                                                    },
+                                                    {
+                                                        "id": 16,
+                                                        "description": "Add the bay leaves, a little olive oil and a couple of slices of lemon.",
+                                                        "order": 8
+                                                    },
+                                                    {
+                                                        "id": 17,
+                                                        "description": "Put the gilthead bream in a preheated oven at 180 degrees for 25 minutes.",
+                                                        "order": 9
+                                                    },
+                                                    {
+                                                        "id": 18,
+                                                        "description": "In the meantime, we are going to make the \"Majado\". You can do it with a pestle and mortar or a food processor, but in this case, I prefer to chop it with a knife.",
+                                                        "order": 10
+                                                    },
+                                                    {
+                                                        "id": 19,
+                                                        "description": "Mix the garlic and finely chopped parsley in a bowl, together with the vinegar and water. Add a little salt and mix well. This mixture will make a delicious sauce.",
+                                                        "order": 11
+                                                    },
+                                                    {
+                                                        "id": 20,
+                                                        "description": "Once the 25 minutes have elapsed, take the gilthead bream out of the oven. It is time to add the \"Majado\" to the fish and potatoes. You can save a little to put at the end if you are a fan of garlic like me.",
+                                                        "order": 12
+                                                    },
+                                                    {
+                                                        "id": 21,
+                                                        "description": "Put the gilthead bream back in the oven and cook for 5 more minutes at 190 degrees. Finally, take the fish out of the oven, and it is ready to eat.",
+                                                        "order": 13
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "images": [
+                                            "https://storage.googleapis.com/hyfish-storage/fishes/images/gilt-head-bream-1.jpg",
+                                            "https://storage.googleapis.com/hyfish-storage/fishes/images/gilt-head-bream-2.jpg",
+                                            "https://storage.googleapis.com/hyfish-storage/fishes/images/gilt-head-bream-3.jpg"
+                                        ]
                                     }
                                 },
                                 "schema": {
@@ -894,7 +1369,7 @@
                                         "message": {
                                             "type": "string"
                                         },
-                                        "data":{
+                                        "data": {
                                             "$ref": "#/components/fishSchema"
                                         }
                                     }
@@ -1899,7 +2374,7 @@
                         "description": "Success get all forums",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "status": true,
                                     "message": "Get forums successful",
                                     "data": [
@@ -2040,7 +2515,7 @@
                         "description": "Success get all forums containing keywords",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "status": true,
                                     "message": "Get forums by name successful",
                                     "data": [
@@ -2114,7 +2589,7 @@
                 "message": {
                     "type": "string"
                 },
-                "data":{
+                "data": {
                     "type": "object",
                     "properties": {
                         "id": {
@@ -2146,7 +2621,6 @@
                             "description": "Timestamp in ISO 8601 format with microseconds"
                         }
                     }
-                
                 }
             }
         },
@@ -2159,7 +2633,7 @@
                 "message": {
                     "type": "string"
                 },
-                "data":{
+                "data": {
                     "type": "array",
                     "items": {
                         "type": "object",
@@ -2209,11 +2683,6 @@
                 "description": {
                     "type": "string"
                 },
-                "updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "Timestamp in ISO 8601 format with microseconds"
-                },
                 "created_at": {
                     "type": "string",
                     "format": "date-time",
@@ -2230,7 +2699,7 @@
                             "name": {
                                 "type": "string"
                             },
-                            "ingredient": {
+                            "ingredients": {
                                 "type": "array",
                                 "items": {
                                     "type": "object",
@@ -2269,7 +2738,13 @@
                             }
                         }
                     }
-                }
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
             }
         },
         "postRequestSchema": {
@@ -2290,7 +2765,9 @@
                     "type": "array",
                     "items": {
                         "type": "object",
-                        "required": ["name"],
+                        "required": [
+                            "name"
+                        ],
                         "properties": {
                             "name": {
                                 "type": "string"
@@ -2302,7 +2779,9 @@
                     "type": "array",
                     "items": {
                         "type": "object",
-                        "required": ["image"],
+                        "required": [
+                            "image"
+                        ],
                         "properties": {
                             "image": {
                                 "type": "string",
@@ -2368,7 +2847,6 @@
                             }
                         }
                     }
-                
                 }
             }
         },
