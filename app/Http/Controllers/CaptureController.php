@@ -60,10 +60,13 @@ class CaptureController extends ResponseController
         try {
             $validator = Validator::make($request->all(), [
                 'image' => 'required|mimes:png,jpg,jpeg',
+                'type' => 'required|in:freshness,classification'
             ],
             [
                 'image.required' => 'Image can\'t be empty',
-                'image.mimes' => 'Allowed image extensions are PNG, JPG, JPEG'
+                'image.mimes' => 'Allowed image extensions are PNG, JPG, JPEG',
+                'type.required' => 'Type can\'t be empty',
+                'type.in' => 'Type must be either freshness or classification'
             ]);
 
             if ($validator->fails()) {
@@ -85,6 +88,7 @@ class CaptureController extends ResponseController
                         'freshness' => $response['result'],
                         'score' => $response['score'],
                         'user_id' => Auth::user()->id,
+                        'fish_id' => null
                     ]);
                 }
                 else {
@@ -111,6 +115,7 @@ class CaptureController extends ResponseController
                 $capture = Capture::create([
                     'type' => 'classification',
                     'image_url' => Storage::disk('gcs')->url($path),
+                    'freshness' => null,
                     'score' => $response['score'],
                     'user_id' => Auth::user()->id,
                     'fish_id' => $fish->id,

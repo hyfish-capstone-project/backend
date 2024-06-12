@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('image_url');
             $table->string('freshness')->nullable();
-            $table->integer('score');
+            $table->float('score');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->constrained();
             $table->unsignedBigInteger('fish_id')->nullable();
             $table->foreign('fish_id')->references('id')->on('fishes')->onDelete('cascade');
