@@ -11,9 +11,10 @@ class Capture extends Model
 
     protected $table = 'captures';
     protected $fillable = [
-        'result',
+        'type',
+        'freshness',
         'image_url',
-        'rate',
+        'score',
         'user_id',
         'fish_id'
     ];

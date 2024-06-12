@@ -69,34 +69,57 @@ class CaptureController extends ResponseController
             if ($validator->fails()) {
                 return $this->sendError($validator->errors(), 422);
             }
-
-            // send request to flask
-            $path = $request->hasFile('image') ? $this->storeImage($request->file('image'), 'captures') : null;
+            
             $host = env('PREDICTION_HOST', 'localhost');
             $port = env('PREDICTION_PORT', 5000);
-            $url = "http://$host:$port/api/predict"; 
-            $response = Http::post($url, ['path' => $path]);
 
-            if ($response->successful() && isset($response['result'])){
-                $fish = Fish::firstWhere('name', $response['result']);
-                if (is_null($fish)) {
-                    return $this->sendError('Fish not found');
+            if ($request->type == 'freshness'){            // freshness prediction
+                $path = $request->hasFile('image') ? $this->storeImage($request->file('image'), 'captures') : null;
+                $url = "http://$host:$port/api/freshness";
+                $response = Http::post($url, ['path' => $path]);
+                
+                if ($response->successful() && isset($response['result']) &&  isset($response['score'])){
+                    $capture = Capture::create([
+                        'type' => 'freshness',
+                        'image_url' => Storage::disk('gcs')->url($path),
+                        'freshness' => $response['result'],
+                        'score' => $response['score'],
+                        'user_id' => Auth::user()->id,
+                    ]);
                 }
-            }
-            else {
-                return $this->sendError('Failed to get prediction response');
-            }
-            
-            // TODO: update result dan rate
-            $capture = Capture::create([
-                'image_url' => Storage::disk('gcs')->url($path),
-                'result' => "Sangat segar",
-                'rate' => "96",
-                'user_id' => Auth::user()->id,
-                'fish_id' => $fish->id,
-            ]);
+                else {
+                    return $this->sendError('Failed to get freshness prediction response');
+                }
 
-            return $this->sendResponse('Store capture successful', $capture);
+                return $this->sendResponse('Store capture successful', $capture);
+            }
+            else if ($request->type == 'classification'){            // fish classification
+                $path = $request->hasFile('image') ? $this->storeImage($request->file('image'), 'captures') : null;
+                $url = "http://$host:$port/api/predict"; 
+                $response = Http::post($url, ['path' => $path]);
+
+                if ($response->successful() && isset($response['result']) &&  isset($response['score'])){
+                    $fish = Fish::firstWhere('name', $response['result']);
+                    if (is_null($fish)) {
+                        return $this->sendError('Fish not found');
+                    }
+                }
+                else {
+                    return $this->sendError('Failed to get classification response');
+                }
+
+                $capture = Capture::create([
+                    'type' => 'classification',
+                    'image_url' => Storage::disk('gcs')->url($path),
+                    'score' => $response['score'],
+                    'user_id' => Auth::user()->id,
+                    'fish_id' => $fish->id,
+                ]);
+
+                return $this->sendResponse('Store capture successful', $capture);
+            }
+
+            return $this->sendError('Invalid type of feature');
         }
         catch (Exception $e){
             return $this->sendError($e->getMessage());
