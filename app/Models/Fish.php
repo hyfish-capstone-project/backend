@@ -13,7 +13,6 @@ class Fish extends Model
     protected $fillable = [
         'name',
         'description',
-        'fish_image_url',
         'nutrition_image_url'
     ];
 
@@ -26,4 +25,10 @@ class Fish extends Model
     {
         return $this->hasMany(Recipe::class);
     }
+
+    public function images()
+    {
+        return $this->hasMany(FishImage::class);
+    }
+
 }
