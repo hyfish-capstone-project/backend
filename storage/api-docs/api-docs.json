@@ -43,7 +43,7 @@
     "paths": {
         "/api/users/register": {
             "post": {
-                "description": "Register new user",
+                "summary": "Register new user",
                 "tags": [
                     "Users"
                 ],
@@ -56,7 +56,8 @@
                                     "value": {
                                         "username": "arsyad",
                                         "email": "emailarsyad@gmail.com",
-                                        "password": "secret"
+                                        "password": "secret123", 
+                                        "confirm_password": "secret123"
                                     }
                                 }
                             },
@@ -65,17 +66,24 @@
                                 "required": [
                                     "username",
                                     "email",
-                                    "password"
+                                    "password",
+                                    "confirm_password"
                                 ],
                                 "properties": {
                                     "username": {
                                         "type": "string"
                                     },
                                     "email": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "format": "email"
                                     },
                                     "password": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "minLength": 8
+                                    },
+                                    "confirm_password": {
+                                        "type": "string",
+                                        "description": "must match password"
                                     }
                                 }
                             }
@@ -89,14 +97,260 @@
                             "application/json": {
                                 "examples": {
                                     "success": {
-                                        "description": "Success register user",
                                         "value": {
+                                            "status": true,
+                                            "message": "Register user successful",
                                             "data": {
-                                                "id": 1,
                                                 "username": "arsyad",
-                                                "email": "emailarsyad@gmail.com"
+                                                "email": "emailarsyad@gmail.com",
+                                                "role": "user",
+                                                "updated_at": "2024-06-12T02:16:38.000000Z",
+                                                "created_at": "2024-06-12T02:16:38.000000Z",
+                                                "id": 1
                                             }
                                         }
+                                    }
+                                },
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "username": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "role": {
+                                                    "type": "string"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "description": "Timestamp in ISO 8601 format with microseconds"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "description": "Timestamp in ISO 8601 format with microseconds"
+                                                },
+                                                "id": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/BadRequest"
+                    }
+                }
+            }
+        },
+        "/api/users/login": {
+            "post": {
+                "summary": "Login user",
+                "tags": [
+                    "Users"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "username": "arsyad",
+                                "password": "secret123"
+                            },
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success login",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": true,
+                                    "message": "Login successful",
+                                    "data": {
+                                        "token": "f4k3T0keN3X4mpL3",
+                                        "role": "user"
+                                    }
+                                },
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string"
+                                                },
+                                                "role": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/BadRequest"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "summary": "Get current user",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success get current user",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": true,
+                                    "message": "Get user successful",
+                                    "data": {
+                                        "id": 1,
+                                        "username": "arsyad",
+                                        "email": "emailarsyad@gmail.com",
+                                        "role": "user"
+                                    }
+                                },
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number"
+                                                },
+                                                "username": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "role": {
+                                                    "type": "string"                                                
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/BadRequest"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update current user",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update current user",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                    "username": "arsyad",
+                                    "email": "emailcadanganarsyad@gmail.com"
+                            },
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success update user",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": true,
+                                    "message": "Update user successful",
+                                    "data": {
+                                        "id": 1,
+                                        "username": "arsyad",
+                                        "email": "emailcadanganarsyad@gmail.com",
+                                        "created_at": "2024-06-12T02:16:38.000000Z",
+                                        "updated_at": "2024-06-12T03:23:50.000000Z"
                                     }
                                 },
                                 "schema": {
@@ -131,203 +385,9 @@
                         "$ref": "#/components/BadRequest"
                     }
                 }
-            }
-        },
-        "/api/users/login": {
-            "post": {
-                "description": "Login user",
-                "tags": [
-                    "Users"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "username": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Success login",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "id": {
-                                                    "type": "number"
-                                                },
-                                                "username": {
-                                                    "type": "string"
-                                                },
-                                                "email": {
-                                                    "type": "string"
-                                                },
-                                                "token": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "$ref": "#/components/BadRequest"
-                    }
-                }
-            }
-        },
-        "/api/users": {
-            "get": {
-                "description": "Get current user",
-                "tags": [
-                    "Users"
-                ],
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success get current user",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "id": {
-                                                    "type": "number"
-                                                },
-                                                "username": {
-                                                    "type": "string"
-                                                },
-                                                "email": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "$ref": "#/components/BadRequest"
-                    }
-                }
-            },
-            "put": {
-                "description": "Update current user",
-                "tags": [
-                    "Users"
-                ],
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "Update current user",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "username": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Success update user",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "id": {
-                                                    "type": "number"
-                                                },
-                                                "username": {
-                                                    "type": "string"
-                                                },
-                                                "email": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "$ref": "#/components/BadRequest"
-                    }
-                }
             },
             "delete": {
-                "description": "Delete current user",
+                "summary": "Delete current user",
                 "tags": [
                     "Users"
                 ],
@@ -346,6 +406,11 @@
                         "description": "Success deleted user",
                         "content": {
                             "application/json": {
+                                "example": {
+                                    "status": true,
+                                    "message": "Delete user successful",
+                                    "data": {}
+                                },
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -355,14 +420,7 @@
                                         "message": {
                                             "type": "string"
                                         },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "message": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
+                                        "data": {}
                                     }
                                 }
                             }
@@ -376,7 +434,7 @@
         },
         "/api/users/logout": {
             "delete": {
-                "description": "Logout current user",
+                "summary": "Logout current user",
                 "tags": [
                     "Users"
                 ],
@@ -392,9 +450,14 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success logout user",
+                        "description": "Success logout current user",
                         "content": {
                             "application/json": {
+                                "example": {
+                                    "status": true,
+                                    "message": "Logout successful",
+                                    "data": {}
+                                },
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -404,9 +467,7 @@
                                         "message": {
                                             "type": "string"
                                         },
-                                        "data": {
-                                            "type": "boolean"
-                                        }
+                                        "data": {}
                                     }
                                 }
                             }
@@ -420,7 +481,7 @@
         },
         "/api/captures": {
             "get": {
-                "description": "Get current user capture history",
+                "summary": "Get current user capture history",
                 "tags": [
                     "Captures"
                 ],
@@ -439,6 +500,32 @@
                         "description": "Success get current user capture history",
                         "content": {
                             "application/json": {
+                                "example": {
+                                    "status": true,
+                                    "message": "Get captures successful",
+                                    "data": [
+                                        {
+                                            "id": 6,
+                                            "result": "Sangat segar",
+                                            "image_url": "https://storage.googleapis.com/hyfish-storage/captures/240612040203_piqelh.jpg",
+                                            "rate": 96,
+                                            "user_id": 7,
+                                            "fish_id": 7,
+                                            "created_at": "2024-06-12T04:02:04.000000Z",
+                                            "updated_at": "2024-06-12T04:02:04.000000Z"
+                                        },
+                                        {
+                                            "id": 7,
+                                            "result": "Sangat segar",
+                                            "image_url": "https://storage.googleapis.com/hyfish-storage/captures/240612040220_qPVZA6.jpg",
+                                            "rate": 96,
+                                            "user_id": 7,
+                                            "fish_id": 7,
+                                            "created_at": "2024-06-12T04:02:21.000000Z",
+                                            "updated_at": "2024-06-12T04:02:21.000000Z"
+                                        }
+                                    ]
+                                },
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -459,13 +546,22 @@
                                                     "result": {
                                                         "type": "string"
                                                     },
-                                                    "image": {
+                                                    "image_url": {
                                                         "type": "string"
                                                     },
                                                     "rate": {
                                                         "type": "number"
                                                     },
-                                                    "createdAt": {
+                                                    "user_id": {
+                                                        "type": "number"
+                                                    },
+                                                    "fish_id": {
+                                                        "type": "number"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string"
+                                                    },
+                                                    "updated_at": {
                                                         "type": "string"
                                                     }
                                                 }
@@ -2015,7 +2111,8 @@
                         "type": "object",
                         "properties": {
                             "status": {
-                                "type": "boolean"
+                                "type": "boolean",
+                                "example": false
                             },
                             "message": {
                                 "type": "string"
