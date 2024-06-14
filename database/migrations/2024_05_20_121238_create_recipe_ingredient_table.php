@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('recipe_id')->references('id')->on('recipes')->onDelete('cascade')->constrained();
             $table->foreignId('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade')->constrained();
-            $table->integer('amount');
+            $table->float('amount');
             $table->string('measurement');
             $table->timestamps();
         });
