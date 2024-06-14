@@ -14,6 +14,7 @@ use App\Models\PostImage;
 use App\Models\Comment;
 use App\Models\Reply;
 use Exception;
+use Illuminate\Support\Facades\Http;
 
 class PostController extends ResponseController
 {
@@ -29,6 +30,17 @@ class PostController extends ResponseController
     public function deleteImage($path = null)
     {
         Storage::disk('gcs')->delete($path);
+    }
+
+    public function toxicCheck($sentence){
+        $host = env('PREDICTION_HOST', 'localhost');
+        $port = env('PREDICTION_PORT', 5000);
+
+        $url = "http://$host:$port/api/toxic";
+        $response = Http::post($url, ['sentence' => $sentence]);
+
+        if ($response->successful()) return $response->json();
+        else return null;
     }
 
     public function storePost(Request $request)
@@ -55,15 +67,33 @@ class PostController extends ResponseController
                 return $this->sendError($validator->errors(), 422);
             }
 
+            $titleToxicCheck = $this->toxicCheck($request->title);
+            $bodyToxicCheck = $this->toxicCheck($request->body);
+            if ($titleToxicCheck && $titleToxicCheck['result'] == "Toxic"){
+                return $this->sendError('Can\'t send post because the title contains toxic sentences');
+            }
+            else if ($bodyToxicCheck && $bodyToxicCheck['result'] == "Toxic"){
+                return $this->sendError('Can\'t send post because the body contains toxic sentences');
+            }
+
+            if ($request->tags) {
+                foreach ($request->tags as $tag) {
+                    $tagToxicCheck = $this->toxicCheck($tag);
+                    if ($tagToxicCheck && $tagToxicCheck['result'] == "Toxic") {
+                        return $this->sendError('Can\'t send post because one or more tags contain toxic sentences');
+                    }
+                }
+            }
+
             $post = Post::create([
                 'title' => $request->title,
                 'body' => $request->body,
                 'user_id' => Auth::id()
             ]);
 
+            $tagids = [];
+            $tagResponse = [];
             if ($request->has('tags')) {
-                $tagids = [];
-                $tagResponse = [];
                 foreach ($request->tags as $tagname) {
                     $tag = Tag::firstOrCreate(['name' =>  $tagname]);
                     $tagids[] = $tag->id;
@@ -286,6 +316,11 @@ class PostController extends ResponseController
                 'message.required' => 'Message can\'t be empty',
             ]);
 
+            $commentToxicCheck = $this->toxicCheck($request->message);
+            if ($commentToxicCheck && $commentToxicCheck['result'] == "Toxic"){
+                return $this->sendError('Can\'t send comment because it contains toxic sentences');
+            }
+
             $comment = Post::findOrFail($post_id)->comments()->create([
                 'message' => $request->message,
                 'user_id' => Auth::id()
@@ -319,6 +354,11 @@ class PostController extends ResponseController
             [
                 'message.required' => 'Message can\'t be empty',
             ]);
+
+            $replyToxicCheck = $this->toxicCheck($request->message);
+            if ($replyToxicCheck && $replyToxicCheck['result'] == "Toxic"){
+                return $this->sendError('Can\'t send reply because it contains toxic sentences');
+            }
 
             $reply = Post::findOrFail($post_id)
             ->comments()
