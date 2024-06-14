@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fish;
+use App\Models\FishImage;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -11,8 +12,27 @@ class FishController extends ResponseController
     public function getAllFishes(Request $request)
     {
         try {
-            $fishes = Fish::all();
-            return $this->sendResponse('Get fishes successful', $fishes);
+            $fishes = Fish::with('images')->get();
+
+            $response = [];
+            foreach ($fishes as $fish) {
+                $images = FishImage::where('fish_id', $fish->id)->get();
+                $image_urls = [];
+                foreach ($images as $image) {
+                    
+                    $image_urls[] = $image->image_url;
+                }
+                $response[] = [
+                    'id' => $fish->id,
+                    'name' => $fish->name,
+                    'description' => $fish->description,
+                    'nutrition_image_url' => $fish->nutrition_image_url,
+                    'created_at' => $fish->created_at,
+                    'updated_at' => $fish->updated_at,
+                    'images' => $image_urls
+                ];
+            }
+            return $this->sendResponse('Get fishes successful', $response);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }
