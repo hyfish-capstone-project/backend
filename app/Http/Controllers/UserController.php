@@ -79,7 +79,7 @@ class UserController extends ResponseController
                 'updated_at' => Carbon::now(),
             ]);
             
-            return $this->sendResponse('Register user successful', $userdata);
+            return $this->sendResponse('Register user successful', $userdata, 201);
         }
         catch (Exception $e) {
             return $this->sendError($e->getMessage());

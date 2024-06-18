@@ -121,10 +121,10 @@ class CaptureController extends ResponseController
                     'fish_id' => $fish->id,
                 ]);
 
-                return $this->sendResponse('Store capture successful', $capture);
+                return $this->sendResponse('Store capture successful', $capture, 201);
             }
 
-            return $this->sendError('Invalid type of feature');
+            return $this->sendError('Invalid type of feature', 400);
         }
         catch (Exception $e){
             return $this->sendError($e->getMessage());

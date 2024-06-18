@@ -6,15 +6,15 @@ use Illuminate\Http\Request;
 
 class ResponseController extends Controller
 {
-    public function sendResponse($message, $data = [])
+    public function sendResponse($message, $data = [], $code = 200)
     {
         $response = [
             'status' => true,
             'message' => $message,
-            'data' => (object) $data,
+            'data' => $data,
         ];
 
-        return response()->json($response, 200);
+        return response()->json($response, $code);
     }
 
     public function sendError($error, $code = 404)

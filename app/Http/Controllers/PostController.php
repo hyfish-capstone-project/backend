@@ -70,17 +70,17 @@ class PostController extends ResponseController
             $titleToxicCheck = $this->toxicCheck($request->title);
             $bodyToxicCheck = $this->toxicCheck($request->body);
             if ($titleToxicCheck && $titleToxicCheck['result'] == "Toxic"){
-                return $this->sendError('Can\'t send post because the title contains toxic sentences');
+                return $this->sendError('Can\'t send post because the title contains toxic sentences', 422);
             }
             else if ($bodyToxicCheck && $bodyToxicCheck['result'] == "Toxic"){
-                return $this->sendError('Can\'t send post because the body contains toxic sentences');
+                return $this->sendError('Can\'t send post because the body contains toxic sentences', 422);
             }
 
             if ($request->tags) {
                 foreach ($request->tags as $tag) {
                     $tagToxicCheck = $this->toxicCheck($tag);
                     if ($tagToxicCheck && $tagToxicCheck['result'] == "Toxic") {
-                        return $this->sendError('Can\'t send post because one or more tags contain toxic sentences');
+                        return $this->sendError('Can\'t send post because one or more tags contain toxic sentences', 422);
                     }
                 }
             }
@@ -124,7 +124,7 @@ class PostController extends ResponseController
                 'images' => $postImages
             ];
             
-            return $this->sendResponse('Post created successfully', $response);
+            return $this->sendResponse('Post created successfully', $response, 201);
         }
         catch (Exception $e) {
             return $this->sendError($e->getMessage());
@@ -318,7 +318,7 @@ class PostController extends ResponseController
 
             $commentToxicCheck = $this->toxicCheck($request->message);
             if ($commentToxicCheck && $commentToxicCheck['result'] == "Toxic"){
-                return $this->sendError('Can\'t send comment because it contains toxic sentences');
+                return $this->sendError('Can\'t send comment because it contains toxic sentences', 422);
             }
 
             $comment = Post::findOrFail($post_id)->comments()->create([
@@ -338,7 +338,7 @@ class PostController extends ResponseController
                 'replies' => $comment->replies
             ];
 
-            return $this->sendResponse('Comment created successfully', $response);
+            return $this->sendResponse('Comment created successfully', $response, 201);
         }
         catch (Exception $e) {
             return $this->sendError($e->getMessage());
@@ -357,7 +357,7 @@ class PostController extends ResponseController
 
             $replyToxicCheck = $this->toxicCheck($request->message);
             if ($replyToxicCheck && $replyToxicCheck['result'] == "Toxic"){
-                return $this->sendError('Can\'t send reply because it contains toxic sentences');
+                return $this->sendError('Can\'t send reply because it contains toxic sentences', 422);
             }
 
             $reply = Post::findOrFail($post_id)
@@ -380,7 +380,7 @@ class PostController extends ResponseController
                 'created_at' => $reply->created_at
             ];
 
-            return $this->sendResponse('Reply created successfully', $response);
+            return $this->sendResponse('Reply created successfully', $response, 201);
         }
         catch (Exception $e) {
             return $this->sendError($e->getMessage());
@@ -393,7 +393,7 @@ class PostController extends ResponseController
             $post = Post::findOrFail($post_id);
             $post->liked_posts()->attach(Auth::id());
 
-            return $this->sendResponse('Like added successfully');
+            return $this->sendResponse('Like added successfully', [], 201);
         }
         catch (Exception $e) {
             return $this->sendError($e->getMessage());
@@ -419,7 +419,7 @@ class PostController extends ResponseController
             $post = Post::findOrFail($post_id);
             $post->followed_posts()->attach(Auth::id());
 
-            return $this->sendResponse('Follow added successfully');
+            return $this->sendResponse('Follow added successfully', [], 201);
         }
         catch (Exception $e) {
             return $this->sendError($e->getMessage());
