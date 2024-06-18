@@ -13,26 +13,21 @@ class FishController extends ResponseController
     {
         try {
             $fishes = Fish::with('images')->get();
-
-            $response = [];
-            foreach ($fishes as $fish) {
-                $images = FishImage::where('fish_id', $fish->id)->get();
+            $formattedFishes = $fishes->map(function ($fish) {
                 $image_urls = [];
-                foreach ($images as $image) {
-                    
+                foreach ($fish->images as $image) {
                     $image_urls[] = $image->image_url;
                 }
-                $response[] = [
+
+                return [
                     'id' => $fish->id,
                     'name' => $fish->name,
                     'description' => $fish->description,
-                    'nutrition_image_url' => $fish->nutrition_image_url,
                     'created_at' => $fish->created_at,
-                    'updated_at' => $fish->updated_at,
                     'images' => $image_urls
                 ];
-            }
-            return $this->sendResponse('Get fishes successful', $response);
+            });
+            return $this->sendResponse('Get fishes successful', $formattedFishes);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }
