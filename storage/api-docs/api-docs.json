@@ -1161,28 +1161,50 @@
                     "description": "Create new post ('application/json' HANYA BUAT DOKUMENTASI, PAKAI 'multipart/form-data' BUAT REQUEST SEBENARNYA)",
                     "content": {
                         "application/json": {
-                            "example": {
-                                "title": "FYI",
-                                "body": "Tahukah kamu, ikan merupakan hewan yang hidup di air",
-                                "tags": [
-                                    {
-                                        "name": "fun"
-                                    },
-                                    {
-                                        "name": "education"
-                                    },
-                                    {
-                                        "name": "fish"
+                            "examples": {
+                                "Success": {
+                                    "description": "Success post example",
+                                    "value": {
+                                        "title": "FYI",
+                                        "body": "Tahukah kamu, ikan merupakan hewan yang hidup di air",
+                                        "tags": [
+                                            {
+                                                "name": "fun"
+                                            },
+                                            {
+                                                "name": "education"
+                                            },
+                                            {
+                                                "name": "fish"
+                                            }
+                                        ],
+                                        "images": [
+                                            {
+                                                "image": "image-file1 (UPLOAD FILE)"
+                                            },
+                                            {
+                                                "image": "image-file2 (UPLOAD FILE)"
+                                            }
+                                        ]
                                     }
-                                ],
-                                "images": [
-                                    {
-                                        "image": "image-file1 (UPLOAD FILE)"
-                                    },
-                                    {
-                                        "image": "image-file2 (UPLOAD FILE)"
+                                },
+                                "Toxic-Failed": {
+                                    "description": "Toxic Post Example",
+                                    "value": {
+                                        "title": "tes",
+                                        "body": "tes bego boglok",
+                                        "tags": [
+                                            {
+                                                "name": "tes"
+                                            }
+                                        ],
+                                        "images": [
+                                            {
+                                                "image": "image-file1 (UPLOAD FILE)"
+                                            }
+                                        ]
                                     }
-                                ]
+                                }
                             },
                             "schema": {
                                 "$ref": "#/components/postRequestSchema"
@@ -1303,8 +1325,28 @@
                             }
                         }
                     },
-                    "400": {
-                        "$ref": "#/components/BadRequest"
+                    "422": {
+                        "description": "Can't send post because the [title|body|tags] contains toxic sentences",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": false,
+                                    "message": "Can't send post because the body contains toxic sentences"
+                                },
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -2320,7 +2362,7 @@
     },
     "components": {
         "BadRequest": {
-            "description": "Filed to process request",
+            "description": "Failed to process request",
             "content": {
                 "application/json": {
                     "schema": {
