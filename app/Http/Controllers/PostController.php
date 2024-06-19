@@ -12,6 +12,8 @@ use App\Models\Post;
 use App\Models\Tag;
 use App\Models\PostImage;
 use App\Models\Comment;
+use App\Models\LikedPost;
+use App\Models\FollowedPost;
 use App\Models\Reply;
 use Exception;
 use Illuminate\Support\Facades\Http;
@@ -179,6 +181,9 @@ class PostController extends ResponseController
                 ];
             }
 
+            $isLiked = LikedPost::where('user_id', Auth::id())->where('post_id', $post_id)->exists();
+            $isFollowed = FollowedPost::where('user_id', Auth::id())->where('post_id', $post_id)->exists();
+
             $response = [
                 'id' => $post->id,
                 'title' => $post->title,
@@ -189,7 +194,9 @@ class PostController extends ResponseController
                 'followers' => $post->followers,
                 'comments' => $comments,
                 'tags' => $tag_names,
-                'images' => $image_urls
+                'images' => $image_urls,
+                'isLiked' => $isLiked,
+                'isFollowed' => $isFollowed
             ];
 
             return $this->sendResponse('Get post by id successful', $response);

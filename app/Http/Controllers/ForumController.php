@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FollowedPost;
+use App\Models\LikedPost;
 use App\Models\Post;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ForumController extends ResponseController
 {
@@ -59,6 +62,9 @@ class ForumController extends ResponseController
                         'replies' => $replies
                     ];
                 }
+
+                $isLiked = LikedPost::where('user_id', Auth::id())->where('post_id', $post->id)->exists();
+                $isFollowed = FollowedPost::where('user_id', Auth::id())->where('post_id', $post->id)->exists();
             
                 return [
                     'id' => $post->id,
@@ -70,7 +76,9 @@ class ForumController extends ResponseController
                     'followers' => $post->followers,
                     'comments' => $comments,
                     'tags' => $tag_names,
-                    'images' => $image_urls
+                    'images' => $image_urls,
+                    'isLiked' => $isLiked,
+                    'isFollowed' => $isFollowed
                 ];
             });
 
@@ -133,6 +141,9 @@ class ForumController extends ResponseController
                         'replies' => $replies
                     ];
                 }
+
+                $isLiked = LikedPost::where('user_id', Auth::id())->where('post_id', $post->id)->exists();
+                $isFollowed = FollowedPost::where('user_id', Auth::id())->where('post_id', $post->id)->exists();
             
                 return [
                     'id' => $post->id,
@@ -144,7 +155,9 @@ class ForumController extends ResponseController
                     'followers' => $post->followers,
                     'comments' => $comments,
                     'tags' => $tag_names,
-                    'images' => $image_urls
+                    'images' => $image_urls,
+                    'isLiked' => $isLiked,
+                    'isFollowed' => $isFollowed
                 ];
             });
             
