@@ -80,6 +80,7 @@ class FishController extends ResponseController
                 'name' => $fish->name,
                 'description' => $fish->description,
                 'created_at' => $fish->created_at,
+                'nutrition_image' => $fish->nutrition_image_url,
                 'recipes' => $recipes,
                 'images' => $image_urls
             ];
